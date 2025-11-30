@@ -1,0 +1,499 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Road Safety Tools - ₹1198 Fixed Price</title>
+  
+   <style>
+       body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; color: #333; }
+       .container { max-width: 1000px; margin: 30px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); }
+       /* Fluid padding on mobile */
+       @media (max-width: 768px) {
+           .container { margin: 10px; padding: 15px; }
+           .product-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+       }
+
+
+       h1, h2 { text-align: center; color: #007bff; }
+      
+       /* Navigation & Header */
+       header { background-color: #007bff; color: white; padding: 15px 0; text-align: center; }
+       header nav { display: flex; justify-content: center; flex-wrap: wrap; }
+       header a { color: white; text-decoration: none; margin: 5px 15px; padding: 5px 10px; border-radius: 5px; font-weight: bold; transition: background-color 0.2s; }
+       header a:hover { background-color: rgba(255, 255, 255, 0.1); }
+      
+       /* Home Section */
+       #home_page { text-align: center; padding: 40px 0; }
+       .banner-price { font-size: 3em; color: #dc3545; font-weight: 900; margin-bottom: 20px; }
+       .btn-shop {
+           background-color: #28a745; color: white; padding: 15px 30px; border: none;
+           border-radius: 8px; font-size: 1.2em; cursor: pointer; text-decoration: none;
+           display: inline-block; margin-top: 20px; transition: background-color 0.2s, transform 0.2s;
+           box-shadow: 0 4px 10px rgba(40, 167, 69, 0.4);
+       }
+       .btn-shop:hover { background-color: #218838; transform: translateY(-2px); }
+
+
+       /* Product Listing Section */
+       #listing_page { padding: 30px 0; }
+       .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
+       .product-card {
+           background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 15px;
+           text-align: center; transition: transform 0.3s, box-shadow 0.3s;
+       }
+       .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); }
+      
+       .img-placeholder { width: 100%; height: 120px; background-color: #e9ecef; border-radius: 6px; margin-bottom: 10px; line-height: 120px; color: #6c757d; font-size: 0.9em; border: 1px solid #dee2e6; }
+       .product-name { font-size: 1.1em; font-weight: bold; margin-bottom: 5px; height: 2.8em; overflow: hidden; color: #007bff; }
+       .product-desc { font-size: 0.8em; color: #666; height: 2.4em; overflow: hidden; margin-bottom: 10px;}
+       .product-price { font-size: 1.5em; color: #dc3545; font-weight: bold; margin-bottom: 15px; }
+       .btn-add-cart {
+           background-color: #ffc107; color: #333; padding: 10px 15px; border: none; border-radius: 5px;
+           cursor: pointer; text-decoration: none; display: block; margin-top: 5px; font-weight: bold;
+           transition: background-color 0.2s;
+       }
+       .btn-add-cart:hover { background-color: #e0a800; }
+
+
+       /* Checkout Steps */
+       .step-indicator { display: flex; justify-content: space-between; margin-bottom: 30px; margin-top: 20px; border-bottom: 1px solid #ccc;}
+       .step { flex: 1; text-align: center; padding: 10px; border-bottom: 4px solid #ccc; color: #999; font-weight: bold; margin-bottom: -1px; transition: border-color 0.3s, color 0.3s;}
+       .step.active { border-color: #007bff; color: #007bff; }
+       .step-content { border: 1px solid #ddd; padding: 25px; border-radius: 8px; }
+       .cart-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #eee; font-size: 1.1em; }
+       .cart-total { text-align: right; font-size: 1.4em; margin-top: 25px; font-weight: bold; padding-top: 15px; border-top: 3px solid #007bff; }
+      
+       /* Forms */
+       label { display: block; margin-top: 15px; font-weight: bold; color: #333; }
+       input[type="text"], input[type="email"], input[type="tel"], select {
+           width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ccc; border-radius: 6px;
+           box-sizing: border-box; font-size: 1em;
+       }
+      
+       /* Buttons */
+       .btn-primary {
+           background-color: #28a745; color: white; padding: 15px 20px; border: none; border-radius: 6px;
+           cursor: pointer; font-size: 1.1em; margin-top: 30px; display: block; width: 100%;
+           text-align: center; text-decoration: none; transition: background-color 0.2s;
+       }
+       .btn-primary:hover { background-color: #218838; }
+
+
+       /* Thank You Page */
+       .thank-you { text-align: center; padding: 50px; background-color: #e9ffe9; border: 2px solid #28a745; border-radius: 10px; margin-top: 30px; }
+       .thank-you h2 { color: #28a745; }
+
+
+       /* QR Code Styling */
+       .qr-section { text-align: center; padding: 20px; border: 1px solid #eee; border-radius: 8px; margin-top: 20px; }
+       .qr-section img { border: 5px solid #007bff; border-radius: 10px; margin: 15px auto; display: block; }
+
+
+       /* --- TOAST NOTIFICATION STYLES --- */
+       #toast-container {
+           position: fixed;
+           top: 20px;
+           right: 20px;
+           z-index: 1000;
+           display: flex;
+           flex-direction: column;
+           gap: 10px;
+       }
+
+
+       .toast {
+           min-width: 250px;
+           padding: 15px;
+           border-radius: 8px;
+           box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+           color: white;
+           opacity: 0;
+           transition: opacity 0.5s, transform 0.5s;
+           transform: translateX(100%);
+       }
+
+
+       .toast.show {
+           opacity: 1;
+           transform: translateX(0);
+       }
+
+
+       .toast.success { background-color: #28a745; }
+       .toast.error { background-color: #dc3545; }
+       .toast.info { background-color: #007bff; }
+   </style>
+</head>
+<body>
+   <header>
+       <nav>
+           <a href="#" onclick="showPage('home_page')">🏠 Home</a>
+           <a href="#" onclick="showPage('listing_page')">🛍️ All Tools</a>
+           <a href="#" onclick="showPage('checkout_step1')">🛒 Cart</a>
+       </nav>
+   </header>
+
+
+   <!-- TOAST CONTAINER -->
+   <div id="toast-container"></div>
+
+
+   <div class="container">
+
+
+       <div id="home_page">
+           <h1>🚧 Road Safety: The Most Essential Tools</h1>
+           <h2>High-Quality Equipment, Single Fixed Price.</h2>
+           <p class="banner-price">Only ₹1198</p>
+           <p>Life-saving products. Easy **3-Step purchase process**.</p>
+           <a href="#" onclick="showPage('listing_page')" class="btn-shop">Shop Now »</a>
+       </div>
+
+
+       <div id="listing_page" style="display:none;">
+           <h2>🛍️ All Road Safety Tools</h2>
+           <p style="text-align: center; font-size: 1.1em;">Fixed Price for every tool: <span style="color: #dc3545; font-weight: bold;">₹1198</span></p>
+          
+           <div class="product-grid">
+               <div class="product-card">
+                   <div class="img-placeholder">Reflective Jacket Image</div>
+                   <div class="product-name">High-Visibility Reflective Safety Jacket</div>
+                   <p class="product-desc">Neon color and 3M reflective strips for day and night visibility.</p>
+                   <div class="product-price">₹1198</div>
+                   <a href="#" class="btn-add-cart" onclick="addToCart('High-Visibility Safety Jacket', 1198)">Add to Cart</a>
+               </div>
+               <div class="product-card">
+                   <div class="img-placeholder">Warning Triangle Image</div>
+                   <div class="product-name">Foldable Emergency Warning Triangle</div>
+                   <p class="product-desc">Highly reflective for roadside placement behind a broken-down vehicle.</p>
+                   <div class="product-price">₹1198</div>
+                   <a href="#" class="btn-add-cart" onclick="addToCart('Warning Triangle', 1198)">Add to Cart</a>
+               </div>
+               <div class="product-card">
+                   <div class="img-placeholder">Safety Hammer Image</div>
+                   <div class="product-name">Multi-Functional Safety Hammer & Seatbelt Cutter</div>
+                   <p class="product-desc">Essential tool to break glass and cut stuck seatbelts in an emergency.</p>
+                   <div class="product-price">₹1198</div>
+                   <a href="#" class="btn-add-cart" onclick="addToCart('Safety Hammer', 1198)">Add to Cart</a>
+               </div>
+               <div class="product-card">
+                   <div class="img-placeholder">Puncture Kit Image</div>
+                   <div class="product-name">Tyre Puncture Repair Kit</div>
+                   <p class="product-desc">Self-repair kit for tubeless tyres, essential for long drives.</p>
+                   <div class="product-price">₹1198</div>
+                   <a href="#" class="btn-add-cart" onclick="addToCart('Puncture Repair Kit', 1198)">Add to Cart</a>
+               </div>
+               <div class="product-card">
+                   <div class="img-placeholder">LED Flasher Image</div>
+                   <div class="product-name">LED Based Traffic / Emergency Flasher Light</div>
+                   <p class="product-desc">Powerful LED blinking light to create a safety perimeter during an accident.</p>
+                   <div class="product-price">₹1198</div>
+                   <a href="#" class="btn-add-cart" onclick="addToCart('Emergency Flasher', 1198)">Add to Cart</a>
+               </div>
+           </div>
+           <a href="#" onclick="showPage('checkout_step1')" class="btn-shop" style="margin-top: 40px; width: auto; display: block; text-align: center;">🛒 Proceed to Checkout</a>
+       </div>
+
+
+       <div id="checkout_step1" style="display:none;">
+           <div class="step-indicator">
+               <div class="step active" id="step1_name">1. Cart</div>
+               <div class="step" id="step2_name">2. Details</div>
+               <div class="step" id="step3_name">3. Payment</div>
+           </div>
+           <div class="step-content">
+               <h2>🛍️ Step 1: Product Selection</h2>
+               <div id="cart_items">
+                   <p style="text-align: center;">Your cart is empty. Please shop.</p>
+               </div>
+               <div class="cart-total" id="cart_total_display">
+                   Total: ₹0
+               </div>
+               <a href="#" class="btn-primary" onclick="validateCartAndProceed()">Proceed to Details</a>
+           </div>
+       </div>
+
+
+       <div id="checkout_step2" style="display:none;">
+           <div class="step-indicator">
+               <div class="step active">1. Cart</div>
+               <div class="step active">2. Details</div>
+               <div class="step">3. Payment</div>
+           </div>
+           <div class="step-content">
+               <h2>👤 Step 2: Personal Details & Address</h2>
+               <form id="details_form">
+                   <label for="name">Full Name:</label>
+                   <input type="text" id="name" required>
+                   <label for="email">Email Address:</label>
+                   <input type="email" id="email" required>
+                   <label for="tel">Mobile Number:</label>
+                   <input type="tel" id="tel" required>
+                   <label for="address">Shipping Address:</label>
+                   <input type="text" id="address" required>
+                   <label for="pincode">Pincode:</label>
+                   <input type="text" id="pincode" required>
+                   <a href="#" class="btn-primary" onclick="validateAndProceed()">Proceed to Payment</a>
+               </form>
+           </div>
+       </div>
+
+
+       <div id="checkout_step3" style="display:none;">
+           <div class="step-indicator">
+               <div class="step active">1. Cart</div>
+               <div class="step active">2. Details</div>
+               <div class="step active">3. Payment</div>
+           </div>
+           <div class="step-content">
+               <h2>💳 Step 3: UPI Payment Confirmation</h2>
+               <p><strong>Amount Payable: <span style="color: #dc3545;" id="final_amount_display">₹0</span></strong></p>
+              
+               <div class="qr-section">
+                   <h3>Scan to Pay via UPI</h3>
+                   <img src="https://placehold.co/150x150/007bff/ffffff?text=SCAN+FOR+UPI"
+                        alt="UPI QR Code Placeholder"
+                        onerror="this.onerror=null; this.src='https://placehold.co/150x150/007bff/ffffff?text=QR+Code';"
+                        width="150" height="150">
+                   <p style="font-size: 0.9em; color: #555;">Use any UPI app (Paytm, Google Pay, PhonePe) to scan and pay the exact amount shown above.</p>
+               </div>
+
+
+               <h3 style="margin-top: 30px;">Payment Confirmation</h3>
+               <p style="color: #dc3545; font-weight: bold;">Step 1: Complete the payment via UPI using the QR code above.</p>
+              
+               <!-- New Upload Field -->
+               <p style="color: #007bff; font-weight: bold; margin-top: 20px;">Step 2: Upload Payment Screenshot (Mandatory)</p>
+               <label for="payment_screenshot" style="margin-top: 10px;">Upload Screenshot:</label>
+               <input type="file" id="payment_screenshot" accept="image/*" required style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
+               <!-- End New Upload Field -->
+
+
+               <p style="color: #007bff; font-weight: bold; margin-top: 20px;">Step 3: Click the button below to confirm your order.</p>
+
+
+               <!-- Updated button to validate upload -->
+               <a href="#" class="btn-primary" onclick="validatePaymentAndProceed()">Place Order</a>
+              
+               <p style="margin-top: 25px; color: #555; text-align: center;">*Your order will be processed immediately upon confirmation.</p>
+           </div>
+       </div>
+      
+       <div id="thankyou_page" style="display:none;">
+           <div class="thank-you">
+               <h2>✅ Thank You!</h2>
+               <p>Your order has been placed successfully.</p>
+               <p>Your Order Number is: <strong>#RS-${Math.floor(Math.random() * 90000) + 10000}</strong>.</p>
+               <p>Thank you for your purchase.</p>
+               <a href="#" onclick="showPage('home_page')" style="color: #007bff; display: block; margin-top: 20px;">Return to Home Page</a>
+           </div>
+       </div>
+
+
+   </div>
+
+
+   <script>
+       const pages = ['home_page', 'listing_page', 'checkout_step1', 'checkout_step2', 'checkout_step3', 'thankyou_page'];
+       let cart = []; // Cart is initially empty
+
+
+       /**
+        * Custom function to display a toast notification instead of alert().
+        * @param {string} message The message to display.
+        * @param {string} type 'success', 'error', or 'info'.
+        */
+       function showToast(message, type = 'info') {
+           const container = document.getElementById('toast-container');
+           if (!container) return;
+
+
+           const toast = document.createElement('div');
+           toast.className = `toast ${type}`;
+           toast.innerText = message;
+          
+           container.prepend(toast); // Add new toast at the top
+
+
+           // Show animation
+           setTimeout(() => {
+               toast.classList.add('show');
+           }, 10);
+
+
+           // Hide and remove after 3 seconds
+           setTimeout(() => {
+               toast.classList.remove('show');
+               // Wait for fade-out transition to complete before removing
+               setTimeout(() => {
+                   container.removeChild(toast);
+               }, 500);
+           }, 3000);
+       }
+
+
+       function showPage(pageId) {
+           // Hide all pages
+           pages.forEach(id => {
+               const element = document.getElementById(id);
+               if (element) element.style.display = 'none';
+           });
+           // Show the selected page
+           const currentPage = document.getElementById(pageId);
+           if (currentPage) currentPage.style.display = 'block';
+          
+           // Update cart display whenever page changes (especially relevant for steps 1 and 3)
+           updateCartDisplay();
+          
+           // Update step indicators
+           updateStepIndicators(pageId);
+       }
+
+
+       function updateStepIndicators(pageId) {
+          
+           // Clear all active classes in all step containers
+           document.querySelectorAll('.step-indicator .step').forEach(step => {
+               step.classList.remove('active');
+           });
+          
+           // Set active classes based on the current page
+           if (pageId === 'checkout_step1') {
+               document.querySelector('#checkout_step1 .step:nth-child(1)').classList.add('active');
+               document.querySelector('#checkout_step2 .step:nth-child(1)').classList.remove('active');
+               document.querySelector('#checkout_step3 .step:nth-child(1)').classList.remove('active');
+           } else if (pageId === 'checkout_step2') {
+               document.querySelector('#checkout_step1 .step:nth-child(1)').classList.add('active');
+               document.querySelector('#checkout_step2 .step:nth-child(2)').classList.add('active');
+               document.querySelector('#checkout_step3 .step:nth-child(1)').classList.add('active'); // Keep step 1 active across containers
+               document.querySelector('#checkout_step3 .step:nth-child(2)').classList.remove('active');
+           } else if (pageId === 'checkout_step3') {
+               document.querySelector('#checkout_step1 .step:nth-child(1)').classList.add('active');
+               document.querySelector('#checkout_step2 .step:nth-child(2)').classList.add('active');
+               document.querySelector('#checkout_step3 .step:nth-child(1)').classList.add('active');
+               document.querySelector('#checkout_step3 .step:nth-child(2)').classList.add('active');
+               document.querySelector('#checkout_step3 .step:nth-child(3)').classList.add('active');
+           }
+       }
+
+
+       function addToCart(productName, price) {
+           const existingItem = cart.find(item => item.name === productName);
+           if (existingItem) {
+               existingItem.qty += 1;
+           } else {
+               cart.push({ name: productName, price: price, qty: 1 });
+           }
+          
+           const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
+           showToast(productName + ' (₹' + price + ') added to cart! (Total items: ' + totalItems + ')', 'success');
+          
+           updateCartDisplay();
+       }
+
+
+       function updateCartDisplay() {
+           const cartItemsContainer = document.getElementById('cart_items');
+           const cartTotalDisplay = document.getElementById('cart_total_display');
+           const finalAmountDisplay = document.getElementById('final_amount_display');
+          
+           // Only proceed if elements exist (i.e., we are on a checkout page)
+           if (!cartItemsContainer) return;
+
+
+           cartItemsContainer.innerHTML = '';
+           let total = 0;
+
+
+           if (cart.length === 0) {
+               cartItemsContainer.innerHTML = '<p style="text-align: center; color: #dc3545; font-weight: bold; padding: 10px;">Your cart is empty.</p>';
+           } else {
+               cart.forEach(item => {
+                   const subtotal = item.price * item.qty;
+                   total += subtotal;
+                   const itemDiv = document.createElement('div');
+                   itemDiv.className = 'cart-item';
+                   itemDiv.innerHTML = `<span>${item.name} (x ${item.qty})</span><span>₹${subtotal.toLocaleString('en-IN')}</span>`;
+                   cartItemsContainer.appendChild(itemDiv);
+               });
+           }
+          
+           const formattedTotal = total.toLocaleString('en-IN');
+          
+           if (cartTotalDisplay) {
+               cartTotalDisplay.innerText = `Total: ₹${formattedTotal}`;
+           }
+           if(finalAmountDisplay) {
+               finalAmountDisplay.innerText = `₹${formattedTotal}`;
+           }
+       }
+      
+       function validateCartAndProceed() {
+           if (cart.length === 0) {
+               showToast('Please add a product to the cart before proceeding.', 'error');
+               showPage('listing_page');
+           } else {
+               showPage('checkout_step2');
+           }
+       }
+
+
+       function validateAndProceed() {
+           const name = document.getElementById('name').value;
+           const email = document.getElementById('email').value;
+           const tel = document.getElementById('tel').value;
+           const address = document.getElementById('address').value;
+           const pincode = document.getElementById('pincode').value;
+
+
+           // Simple validation
+           if (!name || !email || !tel || !address || !pincode) {
+               showToast('Please fill in all required details.', 'error');
+               return;
+           }
+          
+           // Simple phone number validation
+           if (tel.length < 10 || isNaN(tel)) {
+               showToast('Please enter a valid mobile number (min 10 digits).', 'error');
+               return;
+           }
+
+
+           // Simple email validation
+           if (!email.includes('@') || !email.includes('.')) {
+               showToast('Please enter a valid email address.', 'error');
+               return;
+           }
+          
+           showPage('checkout_step3');
+       }
+
+
+       /**
+        * Validates that a payment screenshot has been selected before proceeding to the thank you page.
+        */
+       function validatePaymentAndProceed() {
+           const screenshotInput = document.getElementById('payment_screenshot');
+
+
+           if (!screenshotInput.files || screenshotInput.files.length === 0) {
+               showToast('Please upload the payment screenshot to confirm your order.', 'error');
+               return;
+           }
+          
+           showToast('Payment screenshot uploaded successfully! Placing order...', 'success');
+           // Simulate a slight delay for processing
+           setTimeout(() => {
+               showPage('thankyou_page');
+           }, 500);
+       }
+
+
+       // Initial load: show the home page
+       document.addEventListener('DOMContentLoaded', () => {
+           showPage('home_page');
+       });
+   </script>
+</body>
+</html>
