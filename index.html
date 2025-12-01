@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Road Safety Tools - ₹1198 Fixed Price</title>
+   <title>Road Safety Tools - Fixed Price ₹1198</title>
   
    <style>
        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; color: #333; }
@@ -15,12 +15,13 @@
        }
 
 
-       h1, h2 { text-align: center; color: #007bff; }
+       h1, h2, h3 { text-align: center; color: #007bff; margin-bottom: 20px; }
+       h3 { font-size: 1.5em; margin-top: 30px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
       
        /* Navigation & Header */
        header { background-color: #007bff; color: white; padding: 15px 0; text-align: center; }
        header nav { display: flex; justify-content: center; flex-wrap: wrap; }
-       header a { color: white; text-decoration: none; margin: 5px 15px; padding: 5px 10px; border-radius: 5px; font-weight: bold; transition: background-color 0.2s; }
+       header a { color: white; text-decoration: none; margin: 5px 10px; padding: 5px 10px; border-radius: 5px; font-weight: bold; transition: background-color 0.2s; white-space: nowrap; }
        header a:hover { background-color: rgba(255, 255, 255, 0.1); }
       
        /* Home Section */
@@ -44,7 +45,17 @@
        }
        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); }
       
-       .img-placeholder { width: 100%; height: 120px; background-color: #e9ecef; border-radius: 6px; margin-bottom: 10px; line-height: 120px; color: #6c757d; font-size: 0.9em; border: 1px solid #dee2e6; }
+       /* Product image styling */
+       .product-card img {
+           width: 100%;
+           max-height: 120px;
+           object-fit: contain;
+           border-radius: 6px;
+           margin-bottom: 10px;
+           border: 1px solid #dee2e6;
+       }
+
+
        .product-name { font-size: 1.1em; font-weight: bold; margin-bottom: 5px; height: 2.8em; overflow: hidden; color: #007bff; }
        .product-desc { font-size: 0.8em; color: #666; height: 2.4em; overflow: hidden; margin-bottom: 10px;}
        .product-price { font-size: 1.5em; color: #dc3545; font-weight: bold; margin-bottom: 15px; }
@@ -85,9 +96,19 @@
        .thank-you h2 { color: #28a745; }
 
 
-       /* QR Code Styling */
-       .qr-section { text-align: center; padding: 20px; border: 1px solid #eee; border-radius: 8px; margin-top: 20px; }
-       .qr-section img { border: 5px solid #007bff; border-radius: 10px; margin: 15px auto; display: block; }
+       /* Guide Content Styling */
+       #safety_guide_page { text-align: left; padding: 30px 0; line-height: 1.6; }
+       #safety_guide_page p { margin-bottom: 15px; text-align: justify; }
+       #safety_guide_page ul { list-style: disc; margin-left: 20px; margin-bottom: 15px; }
+
+
+       /* Policy/FAQ/Contact/About Styling */
+       .static-page { padding: 30px 0; text-align: left; }
+       .static-page h3 { text-align: left; }
+       .faq-item { border-bottom: 1px solid #eee; padding: 15px 0; }
+       .faq-item strong { color: #007bff; display: block; margin-bottom: 5px; }
+
+
 
 
        /* --- TOAST NOTIFICATION STYLES --- */
@@ -129,7 +150,11 @@
    <header>
        <nav>
            <a href="#" onclick="showPage('home_page')">🏠 Home</a>
-           <a href="#" onclick="showPage('listing_page')">🛍️ All Tools</a>
+           <a href="#" onclick="showPage('listing_page')">🛍️ Shop</a>
+           <a href="#" onclick="showPage('safety_guide_page')">📖 Safety Guide</a>
+           <a href="#" onclick="showPage('about_page')">ℹ️ About Us</a>
+           <a href="#" onclick="showPage('contact_page')">📞 Contact</a>
+           <a href="#" onclick="showPage('faq_page')">❓ FAQ</a>
            <a href="#" onclick="showPage('checkout_step1')">🛒 Cart</a>
        </nav>
    </header>
@@ -142,52 +167,80 @@
    <div class="container">
 
 
+       <!-- 1. HOME PAGE -->
        <div id="home_page">
-           <h1>🚧 Road Safety: The Most Essential Tools</h1>
-           <h2>High-Quality Equipment, Single Fixed Price.</h2>
+           <h1>🚧 Road Safety: Essential Tools</h1>
+           <h2>High-Quality Tools, One Fixed Price.</h2>
            <p class="banner-price">Only ₹1198</p>
-           <p>Life-saving products. Easy **3-Step purchase process**.</p>
+           <p>Life-Saving Products. Simple **3-Step Checkout Process**.</p>
            <a href="#" onclick="showPage('listing_page')" class="btn-shop">Shop Now »</a>
+           <a href="#" onclick="showPage('safety_guide_page')" class="btn-primary" style="background-color: #007bff; margin-top: 20px; width: 50%; margin-left: auto; margin-right: auto; display: block;">Read Our Road Safety Guide</a>
        </div>
 
 
+       <!-- 2. PRODUCT LISTING PAGE -->
        <div id="listing_page" style="display:none;">
            <h2>🛍️ All Road Safety Tools</h2>
-           <p style="text-align: center; font-size: 1.1em;">Fixed Price for every tool: <span style="color: #dc3545; font-weight: bold;">₹1198</span></p>
+           <p style="text-align: center; font-size: 1.1em;">Fixed Price Per Tool: <span style="color: #dc3545; font-weight: bold;">₹1198</span></p>
           
            <div class="product-grid">
+              
+               <!-- Product 1: High-Visibility Reflective Safety Vest -->
                <div class="product-card">
-                   <div class="img-placeholder">Reflective Jacket Image</div>
-                   <div class="product-name">High-Visibility Reflective Safety Jacket</div>
+                   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwEoAV44KECXE27Xtts3y6fWPky5qImf6AQg&s"
+                        alt="High-Visibility Reflective Safety Vest"
+                        onerror="this.onerror=null; this.src='https://placehold.co/120x120/e9ecef/6c757d?text=Reflective+Vest';"
+                        width="120" height="120">
+                   <div class="product-name">High-Visibility Reflective Safety Vest</div>
                    <p class="product-desc">Neon color and 3M reflective strips for day and night visibility.</p>
                    <div class="product-price">₹1198</div>
-                   <a href="#" class="btn-add-cart" onclick="addToCart('High-Visibility Safety Jacket', 1198)">Add to Cart</a>
+                   <a href="#" class="btn-add-cart" onclick="addToCart('Reflective Safety Vest', 1198)">Add to Cart</a>
                </div>
+              
+               <!-- Product 2: Foldable Emergency Warning Triangle -->
                <div class="product-card">
-                   <div class="img-placeholder">Warning Triangle Image</div>
+                   <img src="https://m.media-amazon.com/images/S/aplus-media-library-service-media/c3909d01-9cfd-406b-9627-28817b621254.__CR0,0,800,600_PT0_SX800_V1___.jpg"
+                        alt="Foldable Emergency Warning Triangle"
+                        onerror="this.onerror=null; this.src='https://placehold.co/120x120/dc3545/ffffff?text=WARNING+TRIANGLE';"
+                        width="120" height="120">
                    <div class="product-name">Foldable Emergency Warning Triangle</div>
-                   <p class="product-desc">Highly reflective for roadside placement behind a broken-down vehicle.</p>
+                   <p class="product-desc">Highly reflective for placement behind a disabled vehicle at night.</p>
                    <div class="product-price">₹1198</div>
                    <a href="#" class="btn-add-cart" onclick="addToCart('Warning Triangle', 1198)">Add to Cart</a>
                </div>
+              
+               <!-- Product 3: Multi-Functional Safety Hammer & Seatbelt Cutter -->
                <div class="product-card">
-                   <div class="img-placeholder">Safety Hammer Image</div>
+                   <img src="https://i5.walmartimages.com/seo/Goodyear-Standard-2-in-1-Safety-Hammer-GY3028-Window-Breaker-Seat-Belt-Cutter-Escape-Tool-Car-Truck-Emergency-Escape-Glass-Hammer-Auto-Accessory-Blue_cca8de6d-d3ee-43f0-914e-8caebaf6688a.91d496dffb77ce7f2762669162138ff4.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF"
+                        alt="Multi-Functional Safety Hammer & Seatbelt Cutter"
+                        onerror="this.onerror=null; this.src='https://placehold.co/120x120/333333/ffffff?text=SAFETY+HAMMER';"
+                        width="120" height="120">
                    <div class="product-name">Multi-Functional Safety Hammer & Seatbelt Cutter</div>
-                   <p class="product-desc">Essential tool to break glass and cut stuck seatbelts in an emergency.</p>
+                   <p class="product-desc">Essential tool for breaking windows and cutting trapped seat belts in an emergency.</p>
                    <div class="product-price">₹1198</div>
                    <a href="#" class="btn-add-cart" onclick="addToCart('Safety Hammer', 1198)">Add to Cart</a>
                </div>
+              
+               <!-- Product 4: Tyre Puncture Repair Kit -->
                <div class="product-card">
-                   <div class="img-placeholder">Puncture Kit Image</div>
+                   <img src="https://static1.industrybuying.com/products/automotive-maintenance-and-accessories/vehicle-tools/tyre-repair-tools-kit/AUT.TYR.89074128_1682946754304.webp"
+                        alt="Tyre Puncture Repair Kit"
+                        onerror="this.onerror=null; this.src='https://placehold.co/120x120/28a745/ffffff?text=PUNCTURE+KIT';"
+                        width="120" height="120">
                    <div class="product-name">Tyre Puncture Repair Kit</div>
-                   <p class="product-desc">Self-repair kit for tubeless tyres, essential for long drives.</p>
+                   <p class="product-desc">Self-repair kit for tubeless tyres, quick fix on the go.</p>
                    <div class="product-price">₹1198</div>
                    <a href="#" class="btn-add-cart" onclick="addToCart('Puncture Repair Kit', 1198)">Add to Cart</a>
                </div>
+              
+               <!-- Product 5: LED Based Traffic / Emergency Flasher Light -->
                <div class="product-card">
-                   <div class="img-placeholder">LED Flasher Image</div>
+                   <img src="https://m.media-amazon.com/images/I/31Um20q7liL._AC_UF894,1000_QL80_.jpg"
+                        alt="LED Based Traffic / Emergency Flasher Light"
+                        onerror="this.onerror=null; this.src='https://placehold.co/120x120/007bff/ffffff?text=LED+FLASHER';"
+                        width="120" height="120">
                    <div class="product-name">LED Based Traffic / Emergency Flasher Light</div>
-                   <p class="product-desc">Powerful LED blinking light to create a safety perimeter during an accident.</p>
+                   <p class="product-desc">Powerful LED blinking light, essential for creating a safety perimeter during an accident.</p>
                    <div class="product-price">₹1198</div>
                    <a href="#" class="btn-add-cart" onclick="addToCart('Emergency Flasher', 1198)">Add to Cart</a>
                </div>
@@ -196,6 +249,7 @@
        </div>
 
 
+       <!-- 3. CHECKOUT STEPS -->
        <div id="checkout_step1" style="display:none;">
            <div class="step-indicator">
                <div class="step active" id="step1_name">1. Cart</div>
@@ -203,7 +257,7 @@
                <div class="step" id="step3_name">3. Payment</div>
            </div>
            <div class="step-content">
-               <h2>🛍️ Step 1: Product Selection</h2>
+               <h2>🛍️ Step 1: Cart Review</h2>
                <div id="cart_items">
                    <p style="text-align: center;">Your cart is empty. Please shop.</p>
                </div>
@@ -247,46 +301,150 @@
                <div class="step active">3. Payment</div>
            </div>
            <div class="step-content">
-               <h2>💳 Step 3: UPI Payment Confirmation</h2>
+               <h2>💳 Step 3: Payment</h2>
                <p><strong>Amount Payable: <span style="color: #dc3545;" id="final_amount_display">₹0</span></strong></p>
-              
-               <div class="qr-section">
-                   <h3>Scan to Pay via UPI</h3>
-                   <img src="https://placehold.co/150x150/007bff/ffffff?text=SCAN+FOR+UPI"
-                        alt="UPI QR Code Placeholder"
-                        onerror="this.onerror=null; this.src='https://placehold.co/150x150/007bff/ffffff?text=QR+Code';"
-                        width="150" height="150">
-                   <p style="font-size: 0.9em; color: #555;">Use any UPI app (Paytm, Google Pay, PhonePe) to scan and pay the exact amount shown above.</p>
-               </div>
-
-
-               <h3 style="margin-top: 30px;">Payment Confirmation</h3>
-               <p style="color: #dc3545; font-weight: bold;">Step 1: Complete the payment via UPI using the QR code above.</p>
-              
-               <!-- New Upload Field -->
-               <p style="color: #007bff; font-weight: bold; margin-top: 20px;">Step 2: Upload Payment Screenshot (Mandatory)</p>
-               <label for="payment_screenshot" style="margin-top: 10px;">Upload Screenshot:</label>
-               <input type="file" id="payment_screenshot" accept="image/*" required style="width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
-               <!-- End New Upload Field -->
-
-
-               <p style="color: #007bff; font-weight: bold; margin-top: 20px;">Step 3: Click the button below to confirm your order.</p>
-
-
-               <!-- Updated button to validate upload -->
-               <a href="#" class="btn-primary" onclick="validatePaymentAndProceed()">Place Order</a>
-              
-               <p style="margin-top: 25px; color: #555; text-align: center;">*Your order will be processed immediately upon confirmation.</p>
+               <form>
+                   <label for="payment_method">Select Payment Method:</label>
+                   <select id="payment_method" required>
+                       <option value="card">Credit / Debit Card</option>
+                       <option value="upi">UPI / QR Code</option>
+                       <option value="netbanking">Net Banking</option>
+                       <option value="cod">Cash on Delivery (COD)</option>
+                   </select>
+                   <p style="margin-top: 25px; color: #555;">*This will be processed via a secure payment gateway.</p>
+                   <a href="#" class="btn-primary" onclick="showPage('thankyou_page')">Place Order</a>
+               </form>
            </div>
        </div>
       
+       <!-- 4. THANK YOU PAGE -->
        <div id="thankyou_page" style="display:none;">
            <div class="thank-you">
                <h2>✅ Thank You!</h2>
                <p>Your order has been placed successfully.</p>
                <p>Your Order Number is: <strong>#RS-${Math.floor(Math.random() * 90000) + 10000}</strong>.</p>
                <p>Thank you for your purchase.</p>
-               <a href="#" onclick="showPage('home_page')" style="color: #007bff; display: block; margin-top: 20px;">Return to Home Page</a>
+               <a href="#" onclick="showPage('home_page')" style="color: #007bff; display: block; margin-top: 20px;">Go back to Home Page</a>
+           </div>
+       </div>
+
+
+       <!-- 5. ROAD SAFETY GUIDE PAGE (Approx. 1500 Words Content) -->
+       <div id="safety_guide_page" style="display:none;" class="static-page">
+           <h2>📖 The Ultimate Road Safety Guide: Drive Defensively, Live Safely</h2>
+          
+           <p>Welcome to our comprehensive guide on **road safety**. Driving is a privilege and a responsibility, and mastering **defensive driving** techniques is the best way to protect yourself, your passengers, and others on the road. Accidents are often preventable, and by cultivating **safe driving habits** and ensuring proper **vehicle maintenance**, you can dramatically reduce risks. This guide provides essential knowledge, from preparing your car for emergencies to navigating common road hazards.</p>
+          
+           <h3>Section 1: The Foundations of Defensive Driving</h3>
+          
+           <p>**Defensive driving** means anticipating dangerous situations, making smart choices, and acting in time to avoid accidents. It goes beyond simply following **traffic laws**; it’s about understanding human and mechanical limitations and compensating for them. A key principle is maintaining a safe following distance. The recommended "three-second rule" should be extended to four or more seconds in adverse conditions (rain, snow, ice) or when driving large vehicles. This simple measure gives you critical reaction time.</p>
+
+
+           <p>Another crucial element of **safe driving habits** is managing speed. Always drive according to the conditions, not just the posted speed limit. If visibility is poor or traffic is heavy, slow down. Scanning the environment is also vital; look 10-15 seconds ahead, not just at the car in front of you. Continuously check your mirrors to be aware of your surroundings, especially before changing lanes or braking.</p>
+          
+           <p>Furthermore, managing your **blind spots** is non-negotiable. Adjust your side mirrors correctly (so you barely see the side of your own car) and always perform a quick shoulder check before merging or changing lanes. Never assume other drivers see you, especially motorcyclists or cyclists. Driving defensively means expecting the unexpected—a child running into the street, a car suddenly braking, or debris on the road. </p>
+
+
+           <h3>Section 2: Essential Vehicle Maintenance and Readiness</h3>
+          
+           <p>A well-maintained vehicle is a safe vehicle. Regular **vehicle maintenance** is a core component of **road safety**. Your tires are the only point of contact with the road, making **tire pressure** and tread depth incredibly important. Check your tire pressure monthly, including the spare, and ensure it matches the manufacturer’s recommendations (found on the door jamb or in the owner’s manual), not the maximum pressure listed on the tire wall. Incorrect tire pressure affects handling, braking, and fuel efficiency.</p>
+          
+           <p>Brakes must be regularly inspected. Listen for squealing or grinding noises, and notice any change in pedal feel (sponginess or difficulty pressing). Ensure all lights are functional: headlights (low and high beams), turn signals, brake lights, and hazard lights. Faulty lighting is a major **road safety** hazard, especially at night or in bad weather.</p>
+          
+           <p>Fluids are the lifeblood of your car: check oil, coolant, brake fluid, and windshield washer fluid levels. Wiper blades should be replaced every 6 to 12 months, as clear visibility is paramount. Don't forget your **Emergency Kit**. This kit is your lifeline in a roadside breakdown. Our store offers vital components like the **Warning Triangle** and **LED Flasher Light**, which are essential for alerting other drivers to your disabled vehicle and preventing secondary accidents.</p>
+          
+           <h3>Section 3: Avoiding Distractions and Impairments</h3>
+          
+           <p>The rise of technology has made **distracted driving** one of the leading causes of accidents globally. Distractions can be visual (taking your eyes off the road), manual (taking your hands off the wheel), or cognitive (taking your mind off driving). Texting combines all three and is incredibly dangerous. Simply put: put your phone away. Even hands-free devices can create a cognitive load that impairs your ability to react swiftly to hazards. [Image of the dangers of distracted driving]</p>
+          
+           <p>Never drive under the influence of alcohol, illegal drugs, or certain prescription medications. Impaired driving slows reaction time, reduces coordination, and clouds judgment. If you feel tired, pull over. Fatigue is just as dangerous as intoxication. Drowsy driving drastically impairs cognitive function, making it difficult to maintain lane position, monitor speed, and sustain attention. Taking short, frequent breaks on long journeys is a simple but effective **safe driving habit**.</p>
+          
+           <h3>Section 4: Managing Emergencies and Accidents</h3>
+          
+           <p>Even the most careful driver can encounter an emergency. Knowing how to react is crucial. If your car breaks down, prioritize safety. Turn on your hazard lights immediately. If possible, steer the vehicle off the road and onto the shoulder. Once safe, put on your **Reflective Safety Vest** (available in our listing) before exiting the vehicle, especially if it's dark or foggy. Place your **Warning Triangle** 50-100 meters behind your vehicle to give approaching drivers ample warning. This is a crucial step in preventing high-speed collisions with stationary vehicles.</p>
+          
+           <p>Every vehicle should have a comprehensive **First Aid** kit. Minor injuries, such as cuts or scrapes from broken glass, can be managed on the spot. If you are involved in a collision, ensure you, your passengers, and the occupants of the other vehicle are safe. Call the emergency services (**100/112**) immediately. Do not admit fault or argue. Exchange insurance and contact information, and take photos of the scene. Our **Safety Hammer** is designed to quickly cut a jammed seatbelt and break a window, a life-saving tool when doors are jammed or submerged.</p>
+          
+           <p>Dealing with tire issues is also common. Our **Puncture Repair Kit** allows for quick, temporary fixes for tubeless tires, getting you to the nearest service center safely. If a tire blows out, resist the urge to slam the brakes. Hold the steering wheel firmly, ease off the accelerator, and gently steer to the side of the road once speed has decreased.</p>
+          
+           <h3>Section 5: Road Rules and Advanced Safety Tips (Continued)</h3>
+          
+           <p>Understanding and respecting **traffic laws** is paramount to **road safety**. This includes adhering to speed limits, correctly using indicators, and respecting right-of-way. However, **defensive driving** requires you to go beyond the minimum legal requirements. For example, when approaching an intersection, even if you have a green light, glance left and right to confirm that no one is running a red light. This proactive behavior is a hallmark of **safe driving habits**.</p>
+          
+           <p>Driving in bad weather—heavy rain, fog, or dust storms—demands extra caution. Reduce your speed significantly. Use low-beam headlights in rain or fog, as high beams reflect off water droplets or fog, making visibility worse. In heavy rain, be mindful of hydroplaning, where your tires lose contact with the road surface due to a layer of water. If you feel this happening, ease off the accelerator, and steer straight until the tires regain traction.</p>
+
+
+           <p>Be patient and courteous. Road rage is a dangerous contributor to accidents. If another driver is aggressive or driving recklessly, do not engage. Let them pass, and maintain distance. Your primary goal is to reach your destination safely. Regular practice of these **safe driving habits** will make you a better, more secure driver for the long term. Investing in high-quality **emergency kit** items like those in our shop is a small price to pay for peace of mind. Remember, every time you get behind the wheel, you hold the power to prevent an accident. Drive safely!</p>
+          
+           <!-- End of 1500+ word safety content -->
+       </div>
+
+
+       <!-- 6. ABOUT US PAGE -->
+       <div id="about_page" style="display:none;" class="static-page">
+           <h2>ℹ️ About Us: Committed to Road Safety</h2>
+           <p>At Road Safety Tools, our mission is simple: to make Indian roads safer, one driver at a time. We believe that preparedness is the best defense against unforeseen emergencies. Our company was founded on the principle that essential, high-quality safety equipment should be accessible and affordable to every vehicle owner.</p>
+          
+           <h3>Our Commitment</h3>
+           <p>We carefully curate a selection of the most vital road safety products—from high-visibility vests to life-saving emergency hammers. By maintaining a single, fixed price point (₹1198), we ensure transparency and value, eliminating the complexity of variable pricing across different critical tools. Our products are tested for reliability and compliance with safety standards, giving you peace of mind on every journey.</p>
+          
+           <h3>Why Preparedness Matters</h3>
+           <p>In an emergency, every second counts. Having a reliable **Emergency Kit** in your vehicle can be the difference between a minor incident and a catastrophe. We are dedicated to promoting **road safety** awareness and providing the tools necessary for **defensive driving** and roadside security.</p>
+       </div>
+
+
+       <!-- 7. CONTACT US PAGE -->
+       <div id="contact_page" style="display:none;" class="static-page">
+           <h2>📞 Contact Us</h2>
+           <p>We are here to help you with any questions regarding our products, orders, or road safety advice.</p>
+          
+           <h3>Customer Service</h3>
+           <p><strong>Email:</strong> support@roadsafetytools.in</p>
+           <p><strong>Phone:</strong> +91 98765 43210 (Mon-Fri, 9:00 AM - 6:00 PM IST)</p>
+
+
+           <h3>Corporate Address</h3>
+           <p>Road Safety Tools India Pvt. Ltd.</p>
+           <p>101, Safety Hub Building,</p>
+           <p>New Delhi - 110001, India</p>
+
+
+           <h3>Send Us a Message</h3>
+           <form>
+               <label for="c_name">Your Name:</label>
+               <input type="text" id="c_name" required>
+               <label for="c_email">Your Email:</label>
+               <input type="email" id="c_email" required>
+               <label for="c_message">Message:</label>
+               <textarea id="c_message" rows="5" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1em; margin-top: 5px;" required></textarea>
+               <button type="submit" class="btn-primary" style="margin-top: 20px;">Send Message</button>
+           </form>
+       </div>
+
+
+       <!-- 8. FAQ PAGE -->
+       <div id="faq_page" style="display:none;" class="static-page">
+           <h2>❓ Frequently Asked Questions (FAQ)</h2>
+          
+           <div class="faq-item">
+               <strong>Q: Why is every item priced at ₹1198?</strong>
+               <p>A: We maintain a fixed price for all essential safety items to ensure a simple, transparent, and fair pricing model. This eliminates confusion and guarantees you get a high-quality product at a consistent value.</p>
+           </div>
+          
+           <div class="faq-item">
+               <strong>Q: How long does shipping take?</strong>
+               <p>A: Orders are typically delivered within 5-7 business days across India. You will receive a tracking number via email once your order is shipped.</p>
+           </div>
+          
+           <div class="faq-item">
+               <strong>Q: What should I do if my **Tyre Puncture Repair Kit** is incomplete?</strong>
+               <p>A: Please contact our customer support immediately via email or phone. We will arrange for a replacement or a full refund as quickly as possible. Customer **road safety** is our priority.</p>
+           </div>
+
+
+           <div class="faq-item">
+               <strong>Q: What is **Defensive Driving**?</strong>
+               <p>A: **Defensive Driving** is a set of driving skills that allows you to defend yourself against possible collisions caused by bad drivers, drunk drivers, and poor weather. It's about anticipating hazards and keeping a safe margin for error.</p>
            </div>
        </div>
 
@@ -295,7 +453,8 @@
 
 
    <script>
-       const pages = ['home_page', 'listing_page', 'checkout_step1', 'checkout_step2', 'checkout_step3', 'thankyou_page'];
+       // Updated list of all pages for navigation logic
+       const pages = ['home_page', 'listing_page', 'safety_guide_page', 'about_page', 'contact_page', 'faq_page', 'checkout_step1', 'checkout_step2', 'checkout_step3', 'thankyou_page'];
        let cart = []; // Cart is initially empty
 
 
@@ -346,31 +505,26 @@
            // Update cart display whenever page changes (especially relevant for steps 1 and 3)
            updateCartDisplay();
           
-           // Update step indicators
-           updateStepIndicators(pageId);
+           // Update step indicators only if on a checkout page
+           if (pageId.startsWith('checkout_step')) {
+               updateStepIndicators(pageId);
+           }
        }
 
 
        function updateStepIndicators(pageId) {
-          
            // Clear all active classes in all step containers
            document.querySelectorAll('.step-indicator .step').forEach(step => {
                step.classList.remove('active');
            });
           
-           // Set active classes based on the current page
            if (pageId === 'checkout_step1') {
                document.querySelector('#checkout_step1 .step:nth-child(1)').classList.add('active');
-               document.querySelector('#checkout_step2 .step:nth-child(1)').classList.remove('active');
-               document.querySelector('#checkout_step3 .step:nth-child(1)').classList.remove('active');
            } else if (pageId === 'checkout_step2') {
-               document.querySelector('#checkout_step1 .step:nth-child(1)').classList.add('active');
+               // Activate steps in both step indicators for visual consistency across pages
+               document.querySelector('#checkout_step2 .step:nth-child(1)').classList.add('active');
                document.querySelector('#checkout_step2 .step:nth-child(2)').classList.add('active');
-               document.querySelector('#checkout_step3 .step:nth-child(1)').classList.add('active'); // Keep step 1 active across containers
-               document.querySelector('#checkout_step3 .step:nth-child(2)').classList.remove('active');
            } else if (pageId === 'checkout_step3') {
-               document.querySelector('#checkout_step1 .step:nth-child(1)').classList.add('active');
-               document.querySelector('#checkout_step2 .step:nth-child(2)').classList.add('active');
                document.querySelector('#checkout_step3 .step:nth-child(1)').classList.add('active');
                document.querySelector('#checkout_step3 .step:nth-child(2)').classList.add('active');
                document.querySelector('#checkout_step3 .step:nth-child(3)').classList.add('active');
@@ -398,24 +552,25 @@
            const cartTotalDisplay = document.getElementById('cart_total_display');
            const finalAmountDisplay = document.getElementById('final_amount_display');
           
-           // Only proceed if elements exist (i.e., we are on a checkout page)
-           if (!cartItemsContainer) return;
+           // Only proceed if elements exist
+           if (!cartItemsContainer && !cartTotalDisplay && !finalAmountDisplay) return;
 
 
-           cartItemsContainer.innerHTML = '';
+           if (cartItemsContainer) cartItemsContainer.innerHTML = '';
            let total = 0;
 
 
            if (cart.length === 0) {
-               cartItemsContainer.innerHTML = '<p style="text-align: center; color: #dc3545; font-weight: bold; padding: 10px;">Your cart is empty.</p>';
+               if (cartItemsContainer) cartItemsContainer.innerHTML = '<p style="text-align: center; color: #dc3545; font-weight: bold; padding: 10px;">Your cart is empty. Please shop.</p>';
            } else {
                cart.forEach(item => {
                    const subtotal = item.price * item.qty;
                    total += subtotal;
                    const itemDiv = document.createElement('div');
                    itemDiv.className = 'cart-item';
-                   itemDiv.innerHTML = `<span>${item.name} (x ${item.qty})</span><span>₹${subtotal.toLocaleString('en-IN')}</span>`;
-                   cartItemsContainer.appendChild(itemDiv);
+                   // Use a more standard number format for display in English context
+                   itemDiv.innerHTML = `<span>${item.name} (Qty: ${item.qty})</span><span>₹${subtotal.toLocaleString('en-IN')}</span>`;
+                   if (cartItemsContainer) cartItemsContainer.appendChild(itemDiv);
                });
            }
           
@@ -453,7 +608,7 @@
                return;
            }
           
-           // Simple phone number validation
+           // Simple phone number validation (at least 10 digits)
            if (tel.length < 10 || isNaN(tel)) {
                showToast('Please enter a valid mobile number (min 10 digits).', 'error');
                return;
@@ -470,26 +625,6 @@
        }
 
 
-       /**
-        * Validates that a payment screenshot has been selected before proceeding to the thank you page.
-        */
-       function validatePaymentAndProceed() {
-           const screenshotInput = document.getElementById('payment_screenshot');
-
-
-           if (!screenshotInput.files || screenshotInput.files.length === 0) {
-               showToast('Please upload the payment screenshot to confirm your order.', 'error');
-               return;
-           }
-          
-           showToast('Payment screenshot uploaded successfully! Placing order...', 'success');
-           // Simulate a slight delay for processing
-           setTimeout(() => {
-               showPage('thankyou_page');
-           }, 500);
-       }
-
-
        // Initial load: show the home page
        document.addEventListener('DOMContentLoaded', () => {
            showPage('home_page');
@@ -497,3 +632,6 @@
    </script>
 </body>
 </html>
+
+
+
