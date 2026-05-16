@@ -72,13 +72,14 @@ border-radius:20px;
 </style>
 </head>
 
-<body class="min-h-screen">
+<body class="min-h-screen flex flex-col justify-between">
 
 <!-- NAVIGATION BAR -->
 <nav class="bg-white border-b border-gray-100 sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-20">
-            <div class="flex items-center gap-3">
+            <!-- CLICKABLE LOGO -->
+            <div onclick="goHome()" class="flex items-center gap-3 cursor-pointer select-none">
                 <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">H</div>
                 <div>
                     <h1 class="text-xl font-bold text-gray-900 leading-tight">HSRP</h1>
@@ -86,15 +87,17 @@ border-radius:20px;
                 </div>
             </div>
             
+            <!-- DESKTOP NAV LINKS -->
             <div class="hidden md:flex items-center space-x-8">
-                <a href="#" class="text-sm font-bold text-blue-600">Home</a>
-                <a href="#" class="text-sm font-bold text-gray-500 hover:text-blue-600 transition">About Us</a>
-                <a href="#" class="text-sm font-bold text-gray-500 hover:text-blue-600 transition">Govt. Notifications</a>
-                <a href="#" class="text-sm font-bold text-gray-500 hover:text-blue-600 transition">FAQs</a>
-                <a href="#" class="text-sm font-bold text-gray-500 hover:text-blue-600 transition">Contact Us</a>
-                <a href="#" class="px-5 py-2.5 bg-red-50 text-red-600 rounded-xl text-sm font-bold hover:bg-red-100 transition">Cancel Order</a>
+                <a href="javascript:void(0)" onclick="goHome()" class="text-sm font-bold text-blue-600">Home</a>
+                <a href="javascript:void(0)" onclick="openSubPage('about')" class="text-sm font-bold text-gray-500 hover:text-blue-600 transition">About Us</a>
+                <a href="javascript:void(0)" onclick="openSubPage('notifications')" class="text-sm font-bold text-gray-500 hover:text-blue-600 transition">Govt. Notifications</a>
+                <a href="javascript:void(0)" onclick="openSubPage('faqs')" class="text-sm font-bold text-gray-500 hover:text-blue-600 transition">FAQs</a>
+                <a href="javascript:void(0)" onclick="openSubPage('contact')" class="text-sm font-bold text-gray-500 hover:text-blue-600 transition">Contact Us</a>
+                <a href="javascript:void(0)" onclick="openSubPage('cancel')" class="px-5 py-2.5 bg-red-50 text-red-600 rounded-xl text-sm font-bold hover:bg-red-100 transition">Cancel Order</a>
             </div>
 
+            <!-- MOBILE MENU TOGGLE BUTTON -->
             <div class="md:hidden flex items-center">
                 <button onclick="toggleMenu()" class="text-gray-500 hover:text-blue-600 focus:outline-none">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -103,17 +106,18 @@ border-radius:20px;
         </div>
     </div>
 
+    <!-- MOBILE NAVIGATION LINKS -->
     <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-gray-50 p-4 space-y-4 shadow-xl">
-        <a href="#" class="block text-sm font-bold text-blue-600">Home</a>
-        <a href="#" class="block text-sm font-bold text-gray-500">About Us</a>
-        <a href="#" class="block text-sm font-bold text-gray-500">Govt. Notifications</a>
-        <a href="#" class="block text-sm font-bold text-gray-500">FAQs</a>
-        <a href="#" class="block text-sm font-bold text-gray-500">Contact Us</a>
-        <a href="#" class="block text-sm font-bold text-red-600">Cancel Order</a>
+        <a href="javascript:void(0)" onclick="goHome()" class="block text-sm font-bold text-blue-600">Home</a>
+        <a href="javascript:void(0)" onclick="openSubPage('about')" class="block text-sm font-bold text-gray-500">About Us</a>
+        <a href="javascript:void(0)" onclick="openSubPage('notifications')" class="block text-sm font-bold text-gray-500">Govt. Notifications</a>
+        <a href="javascript:void(0)" onclick="openSubPage('faqs')" class="block text-sm font-bold text-gray-500">FAQs</a>
+        <a href="javascript:void(0)" onclick="openSubPage('contact')" class="block text-sm font-bold text-gray-500">Contact Us</a>
+        <a href="javascript:void(0)" onclick="openSubPage('cancel')" class="block text-sm font-bold text-red-600">Cancel Order</a>
     </div>
 </nav>
 
-<div class="max-w-3xl mx-auto p-3 md:p-8">
+<div class="max-w-3xl mx-auto p-3 md:p-8 flex-grow w-full">
 
 <!-- STEPPER -->
 <div id="stepperWrapper" class="mb-8">
@@ -235,8 +239,8 @@ border-radius:20px;
                 <textarea id="address" rows="4" placeholder="House No, Street, Landmark, City, District, Pin Code" class="w-full border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold leading-relaxed"></textarea>
             </div>
             <div class="flex gap-3">
-                <button onclick="back1()" class="w-1/3 bg-gray-100 py-4 rounded-2xl font-bold">Back</button>
-                <button onclick="goStep3()" class="w-2/3 bg-blue-600 text-white py-4 rounded-2xl font-bold">Proceed Payment</button>
+                <button onclick="back1()" class="w-1/3 bg-gray-100 py-4 rounded-2xl font-bold hover:bg-gray-200 transition">Back</button>
+                <button onclick="goStep3()" class="w-2/3 bg-blue-600 text-white py-4 rounded-2xl font-bold hover:bg-blue-700 transition">Proceed Payment</button>
             </div>
         </div>
     </div>
@@ -353,18 +357,84 @@ border-radius:20px;
                     <p class="text-[10px] opacity-80">Online Executive</p>
                 </div>
             </div>
-            <button onclick="closeChat()" class="text-2xl hover:scale-110 transition">×</button>
+            <button onclick="closeChat()" class="text-2xl hover:scale-110 transition focus:outline-none">×</button>
         </div>
         <div id="chatMessages" class="h-[400px] overflow-y-auto p-4 bg-gray-50 space-y-4 chat-scroll"></div>
         <div class="p-4 border-t bg-white flex gap-2">
             <input type="text" id="chatInput" placeholder="Type here..." class="flex-1 border border-gray-200 rounded-2xl px-4 py-3 outline-none">
-            <button onclick="sendMessage()" class="bg-blue-600 text-white px-5 rounded-2xl font-bold">Send</button>
+            <button onclick="sendMessage()" class="bg-blue-600 text-white px-5 rounded-2xl font-bold hover:bg-blue-700 transition">Send</button>
         </div>
     </div>
 </div>
 
+<!-- SUB-PAGE MODAL (Used to display sub-pages content dynamically on desktop & mobile) -->
+<div id="subPageModal" class="fixed inset-0 bg-black/50 hidden z-50 items-center justify-center p-3">
+    <div class="bg-white w-full max-w-lg rounded-[30px] overflow-hidden shadow-2xl flex flex-col">
+        <div class="bg-blue-600 text-white p-5 flex justify-between items-center">
+            <h3 id="subPageTitle" class="font-bold text-base">Page Title</h3>
+            <button onclick="closeSubPage()" class="text-2xl hover:scale-110 transition focus:outline-none">×</button>
+        </div>
+        <div id="subPageContent" class="p-6 bg-white space-y-4 max-h-[450px] overflow-y-auto chat-scroll">
+            <!-- Dynamic Sub page Content will load here -->
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER SECTION -->
+<footer class="bg-white border-t border-gray-100 mt-16 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+            <!-- Footer Logo -->
+            <div onclick="goHome()" class="flex items-center gap-3 cursor-pointer select-none">
+                <div class="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-md">H</div>
+                <div>
+                    <h2 class="text-md font-bold text-gray-900 leading-none">HSRP</h2>
+                    <p class="text-[8px] text-gray-400 font-bold uppercase tracking-wider">Booking Portal</p>
+                </div>
+            </div>
+            
+            <!-- Footer Navigation links -->
+            <div class="flex flex-wrap justify-center gap-6 md:gap-8">
+                <a href="javascript:void(0)" onclick="goHome()" class="text-xs font-bold text-gray-500 hover:text-blue-600 transition">Home</a>
+                <a href="javascript:void(0)" onclick="openSubPage('about')" class="text-xs font-bold text-gray-500 hover:text-blue-600 transition">About Us</a>
+                <a href="javascript:void(0)" onclick="openSubPage('notifications')" class="text-xs font-bold text-gray-500 hover:text-blue-600 transition">Govt. Notifications</a>
+                <a href="javascript:void(0)" onclick="openSubPage('faqs')" class="text-xs font-bold text-gray-500 hover:text-blue-600 transition">FAQs</a>
+                <a href="javascript:void(0)" onclick="openSubPage('contact')" class="text-xs font-bold text-gray-500 hover:text-blue-600 transition">Contact Us</a>
+                <a href="javascript:void(0)" onclick="openSubPage('cancel')" class="text-xs font-bold text-red-500 hover:text-red-600 transition">Cancel Order</a>
+            </div>
+        </div>
+        
+        <hr class="border-gray-100 my-6">
+        
+        <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-medium text-gray-400">
+            <p>&copy; 2026 HSRP Booking Portal. All rights reserved.</p>
+            <p class="flex items-center gap-1">
+                Authorized HSRP Booking Channel for State RTOs.
+            </p>
+        </div>
+    </div>
+</footer>
+
 <script>
 let bookingRef = "";
+
+// Override native window.alert with beautiful non-blocking Custom Animated Toast Message Box (To fully support system rules)
+window.alert = function(message) {
+    let toast = document.getElementById("customToast");
+    if (!toast) {
+        toast = document.createElement("div");
+        toast.id = "customToast";
+        toast.className = "fixed top-5 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-4 rounded-2xl shadow-2xl font-bold text-sm tracking-wide transition-all duration-300 transform translate-y-[-100px] opacity-0 z-[100] flex items-center gap-3 border border-slate-800";
+        document.body.appendChild(toast);
+    }
+    toast.innerHTML = `<span class="text-red-500 font-extrabold text-base">⚠</span> <span>${message}</span>`;
+    toast.classList.remove("translate-y-[-100px]", "opacity-0");
+    toast.classList.add("translate-y-0", "opacity-100");
+    setTimeout(() => {
+        toast.classList.add("translate-y-[-100px]", "opacity-0");
+        toast.classList.remove("translate-y-0", "opacity-100");
+    }, 2500);
+}
 
 window.onload = function() {
     const qr = document.getElementById('qrImage');
@@ -378,6 +448,147 @@ window.onload = function() {
 
 function toggleMenu() { document.getElementById("mobileMenu").classList.toggle("hidden"); }
 
+// Function to go back home and reset step view (Triggered by Logo Click)
+function goHome() {
+    document.getElementById("mobileMenu").classList.add("hidden");
+    closeSubPage();
+    closeChat();
+    
+    // Toggle active form pages
+    document.getElementById("step1").classList.remove("hidden");
+    document.getElementById("step2").classList.add("hidden");
+    document.getElementById("step3").classList.add("hidden");
+    document.getElementById("step4").classList.add("hidden");
+    
+    const stepperWrapper = document.getElementById("stepperWrapper");
+    if (stepperWrapper) {
+        stepperWrapper.classList.remove("hidden");
+    }
+    
+    setStep(1);
+}
+
+// Function to handle opening sub-pages on both Mobile and Desktop
+function openSubPage(pageName) {
+    document.getElementById("mobileMenu").classList.add("hidden");
+    closeChat();
+    
+    const modal = document.getElementById("subPageModal");
+    const title = document.getElementById("subPageTitle");
+    const content = document.getElementById("subPageContent");
+    
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+    
+    let htmlContent = "";
+    let titleText = "";
+    
+    if (pageName === 'about') {
+        titleText = "About Us";
+        htmlContent = `
+            <div class="space-y-4 text-gray-600 leading-relaxed text-sm">
+                <p class="font-semibold text-gray-800">Welcome to the High Security Registration Plate (HSRP) Booking Portal.</p>
+                <p>We are a government-authorized platform designed to facilitate the easy, secure, and hassle-free booking of HSRP and color-coded stickers for your vehicles.</p>
+                <p>Our mission is to simplify compliance processes for vehicle owners across India, offering premium service and reliable assistance to ensure your vehicle meets all road transport safety regulations.</p>
+            </div>
+        `;
+    } else if (pageName === 'notifications') {
+        titleText = "Govt. Notifications";
+        htmlContent = `
+            <div class="space-y-4 text-gray-600 leading-relaxed text-sm">
+                <p class="font-semibold text-gray-800">MoRTH Directives & Legal Rules:</p>
+                <ul class="list-disc pl-5 space-y-2">
+                    <li><strong>Mandatory Installation:</strong> According to Rule 50 of the CMV Rules, implementation of High Security Plates is mandatory for all vehicles.</li>
+                    <li><strong>Chassis/Engine Verification:</strong> Online bookings require matches with the unified national VAHAN database.</li>
+                    <li><strong>Regulatory Fines:</strong> Commuters driving vehicles without verified plates can be fined by enforcement authorities.</li>
+                </ul>
+            </div>
+        `;
+    } else if (pageName === 'faqs') {
+        titleText = "Frequently Asked Questions (FAQs)";
+        htmlContent = `
+            <div class="space-y-4 text-sm text-gray-600 chat-scroll max-h-[350px] overflow-y-auto pr-1">
+                <div class="border-b border-gray-100 pb-3">
+                    <h4 class="font-bold text-gray-800 mb-1">What is HSRP?</h4>
+                    <p>It is a tamper-proof plate featuring a chromium-based hot-stamped hologram, unique laser-branded numbers, and non-reusable snap locks.</p>
+                </div>
+                <div class="border-b border-gray-100 pb-3">
+                    <h4 class="font-bold text-gray-800 mb-1">What is needed for booking?</h4>
+                    <p>You need your Vehicle Registration Number, Chassis Number, and Engine Number (last 5 digits of both details).</p>
+                </div>
+                <div class="border-b border-gray-100 pb-3">
+                    <h4 class="font-bold text-gray-800 mb-1">How do I verify my payment?</h4>
+                    <p>Enter your 12-digit UPI/Bank Transaction UTR number after scanning the UPI QR Code, and click on 'Verify Payment'.</p>
+                </div>
+            </div>
+        `;
+    } else if (pageName === 'contact') {
+        titleText = "Contact Us";
+        htmlContent = `
+            <div class="space-y-4 text-gray-600 text-sm">
+                <p class="font-semibold text-gray-800">We are happy to assist you!</p>
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3">
+                        <span class="text-blue-600 font-bold text-base">✉</span>
+                        <span>support@hsrp-booking-portal.co.in</span>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span class="text-blue-600 font-bold text-base">📞</span>
+                        <span>+91 1800-419-7550 (Toll-Free Support Desk)</span>
+                    </div>
+                </div>
+            </div>
+        `;
+    } else if (pageName === 'cancel') {
+        titleText = "Cancel Order";
+        htmlContent = `
+            <div class="space-y-4 text-sm text-gray-600">
+                <p class="font-semibold text-gray-800">To cancel your booking order, please fill out your details below:</p>
+                <div class="space-y-3">
+                    <div>
+                        <label class="text-xs font-bold text-gray-400 uppercase block mb-1">Registration Number</label>
+                        <input type="text" id="cancelRegNo" placeholder="DL01AB1234" class="w-full border border-gray-200 rounded-xl px-3 py-2 outline-none uppercase font-semibold text-xs">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-400 uppercase block mb-1">Reference ID or UTR No.</label>
+                        <input type="text" id="cancelRefNo" placeholder="Enter Reference/UTR" class="w-full border border-gray-200 rounded-xl px-3 py-2 outline-none uppercase font-semibold text-xs">
+                    </div>
+                    <button onclick="submitCancellation()" class="w-full bg-red-600 text-white py-3 rounded-xl font-bold hover:bg-red-700 transition text-xs">Submit Cancellation</button>
+                </div>
+            </div>
+        `;
+    }
+    
+    title.innerText = titleText;
+    content.innerHTML = htmlContent;
+}
+
+// Close Sub-page modal
+function closeSubPage() {
+    document.getElementById("subPageModal").classList.add("hidden");
+    document.getElementById("subPageModal").classList.remove("flex");
+}
+
+// Handle cancellation submit
+function submitCancellation() {
+    const reg = document.getElementById("cancelRegNo").value.trim();
+    const ref = document.getElementById("cancelRefNo").value.trim();
+    if (!reg || !ref) {
+        alert("Please enter all details to proceed.");
+        return;
+    }
+    const content = document.getElementById("subPageContent");
+    content.innerHTML = `
+        <div class="text-center py-6">
+            <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <h4 class="font-bold text-gray-900 text-lg mb-1">Request Received</h4>
+            <p class="text-xs text-gray-500 max-w-xs mx-auto">Your cancellation request for vehicle ${reg.toUpperCase()} has been submitted. Our team will review and process the refund in 24-48 business hours.</p>
+        </div>
+    `;
+}
+
 function setStep(step){
     const widths = {1:"0%", 2:"33%", 3:"66%", 4:"100%"};
     document.getElementById("progressBar").style.width = widths[step];
@@ -387,6 +598,9 @@ function setStep(step){
             if(i<=step){
                 circle.classList.remove("bg-gray-300","text-gray-600");
                 circle.classList.add("bg-blue-600","text-white");
+            } else {
+                circle.classList.add("bg-gray-300","text-gray-600");
+                circle.classList.remove("bg-blue-600","text-white");
             }
         }
     }
