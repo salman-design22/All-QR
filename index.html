@@ -1,637 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Road Safety Tools - Fixed Price ₹1198</title>
-  
-   <style>
-       body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; color: #333; }
-       .container { max-width: 1000px; margin: 30px auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); }
-       /* Fluid padding on mobile */
-       @media (max-width: 768px) {
-           .container { margin: 10px; padding: 15px; }
-           .product-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
-       }
-
-
-       h1, h2, h3 { text-align: center; color: #007bff; margin-bottom: 20px; }
-       h3 { font-size: 1.5em; margin-top: 30px; border-bottom: 2px solid #eee; padding-bottom: 5px; }
-      
-       /* Navigation & Header */
-       header { background-color: #007bff; color: white; padding: 15px 0; text-align: center; }
-       header nav { display: flex; justify-content: center; flex-wrap: wrap; }
-       header a { color: white; text-decoration: none; margin: 5px 10px; padding: 5px 10px; border-radius: 5px; font-weight: bold; transition: background-color 0.2s; white-space: nowrap; }
-       header a:hover { background-color: rgba(255, 255, 255, 0.1); }
-      
-       /* Home Section */
-       #home_page { text-align: center; padding: 40px 0; }
-       .banner-price { font-size: 3em; color: #dc3545; font-weight: 900; margin-bottom: 20px; }
-       .btn-shop {
-           background-color: #28a745; color: white; padding: 15px 30px; border: none;
-           border-radius: 8px; font-size: 1.2em; cursor: pointer; text-decoration: none;
-           display: inline-block; margin-top: 20px; transition: background-color 0.2s, transform 0.2s;
-           box-shadow: 0 4px 10px rgba(40, 167, 69, 0.4);
-       }
-       .btn-shop:hover { background-color: #218838; transform: translateY(-2px); }
-
-
-       /* Product Listing Section */
-       #listing_page { padding: 30px 0; }
-       .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 30px; }
-       .product-card {
-           background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 15px;
-           text-align: center; transition: transform 0.3s, box-shadow 0.3s;
-       }
-       .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); }
-      
-       /* Product image styling */
-       .product-card img {
-           width: 100%;
-           max-height: 120px;
-           object-fit: contain;
-           border-radius: 6px;
-           margin-bottom: 10px;
-           border: 1px solid #dee2e6;
-       }
-
-
-       .product-name { font-size: 1.1em; font-weight: bold; margin-bottom: 5px; height: 2.8em; overflow: hidden; color: #007bff; }
-       .product-desc { font-size: 0.8em; color: #666; height: 2.4em; overflow: hidden; margin-bottom: 10px;}
-       .product-price { font-size: 1.5em; color: #dc3545; font-weight: bold; margin-bottom: 15px; }
-       .btn-add-cart {
-           background-color: #ffc107; color: #333; padding: 10px 15px; border: none; border-radius: 5px;
-           cursor: pointer; text-decoration: none; display: block; margin-top: 5px; font-weight: bold;
-           transition: background-color 0.2s;
-       }
-       .btn-add-cart:hover { background-color: #e0a800; }
-
-
-       /* Checkout Steps */
-       .step-indicator { display: flex; justify-content: space-between; margin-bottom: 30px; margin-top: 20px; border-bottom: 1px solid #ccc;}
-       .step { flex: 1; text-align: center; padding: 10px; border-bottom: 4px solid #ccc; color: #999; font-weight: bold; margin-bottom: -1px; transition: border-color 0.3s, color 0.3s;}
-       .step.active { border-color: #007bff; color: #007bff; }
-       .step-content { border: 1px solid #ddd; padding: 25px; border-radius: 8px; }
-       .cart-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #eee; font-size: 1.1em; }
-       .cart-total { text-align: right; font-size: 1.4em; margin-top: 25px; font-weight: bold; padding-top: 15px; border-top: 3px solid #007bff; }
-      
-       /* Forms */
-       label { display: block; margin-top: 15px; font-weight: bold; color: #333; }
-       input[type="text"], input[type="email"], input[type="tel"], select {
-           width: 100%; padding: 12px; margin-top: 5px; border: 1px solid #ccc; border-radius: 6px;
-           box-sizing: border-box; font-size: 1em;
-       }
-      
-       /* Buttons */
-       .btn-primary {
-           background-color: #28a745; color: white; padding: 15px 20px; border: none; border-radius: 6px;
-           cursor: pointer; font-size: 1.1em; margin-top: 30px; display: block; width: 100%;
-           text-align: center; text-decoration: none; transition: background-color 0.2s;
-       }
-       .btn-primary:hover { background-color: #218838; }
-
-
-       /* Thank You Page */
-       .thank-you { text-align: center; padding: 50px; background-color: #e9ffe9; border: 2px solid #28a745; border-radius: 10px; margin-top: 30px; }
-       .thank-you h2 { color: #28a745; }
-
-
-       /* Guide Content Styling */
-       #safety_guide_page { text-align: left; padding: 30px 0; line-height: 1.6; }
-       #safety_guide_page p { margin-bottom: 15px; text-align: justify; }
-       #safety_guide_page ul { list-style: disc; margin-left: 20px; margin-bottom: 15px; }
-
-
-       /* Policy/FAQ/Contact/About Styling */
-       .static-page { padding: 30px 0; text-align: left; }
-       .static-page h3 { text-align: left; }
-       .faq-item { border-bottom: 1px solid #eee; padding: 15px 0; }
-       .faq-item strong { color: #007bff; display: block; margin-bottom: 5px; }
-
-
-
-
-       /* --- TOAST NOTIFICATION STYLES --- */
-       #toast-container {
-           position: fixed;
-           top: 20px;
-           right: 20px;
-           z-index: 1000;
-           display: flex;
-           flex-direction: column;
-           gap: 10px;
-       }
-
-
-       .toast {
-           min-width: 250px;
-           padding: 15px;
-           border-radius: 8px;
-           box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-           color: white;
-           opacity: 0;
-           transition: opacity 0.5s, transform 0.5s;
-           transform: translateX(100%);
-       }
-
-
-       .toast.show {
-           opacity: 1;
-           transform: translateX(0);
-       }
-
-
-       .toast.success { background-color: #28a745; }
-       .toast.error { background-color: #dc3545; }
-       .toast.info { background-color: #007bff; }
-   </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSRP Official Booking Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore-compat.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .glass-morphism {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .chat-container { height: 400px; overflow-y: auto; scrollbar-width: thin; }
+        .step-active { background-color: #2563eb; color: white; }
+        .step-inactive { background-color: #d1d5db; color: #4b5563; }
+    </style>
 </head>
-<body>
-   <header>
-       <nav>
-           <a href="#" onclick="showPage('home_page')">🏠 Home</a>
-           <a href="#" onclick="showPage('listing_page')">🛍️ Shop</a>
-           <a href="#" onclick="showPage('safety_guide_page')">📖 Safety Guide</a>
-           <a href="#" onclick="showPage('about_page')">ℹ️ About Us</a>
-           <a href="#" onclick="showPage('contact_page')">📞 Contact</a>
-           <a href="#" onclick="showPage('faq_page')">❓ FAQ</a>
-           <a href="#" onclick="showPage('checkout_step1')">🛒 Cart</a>
-       </nav>
-   </header>
-
-
-   <!-- TOAST CONTAINER -->
-   <div id="toast-container"></div>
-
-
-   <div class="container">
-
-
-       <!-- 1. HOME PAGE -->
-       <div id="home_page">
-           <h1>🚧 Road Safety: Essential Tools</h1>
-           <h2>High-Quality Tools, One Fixed Price.</h2>
-           <p class="banner-price">Only ₹1198</p>
-           <p>Life-Saving Products. Simple **3-Step Checkout Process**.</p>
-           <a href="#" onclick="showPage('listing_page')" class="btn-shop">Shop Now »</a>
-           <a href="#" onclick="showPage('safety_guide_page')" class="btn-primary" style="background-color: #007bff; margin-top: 20px; width: 50%; margin-left: auto; margin-right: auto; display: block;">Read Our Road Safety Guide</a>
-       </div>
-
-
-       <!-- 2. PRODUCT LISTING PAGE -->
-       <div id="listing_page" style="display:none;">
-           <h2>🛍️ All Road Safety Tools</h2>
-           <p style="text-align: center; font-size: 1.1em;">Fixed Price Per Tool: <span style="color: #dc3545; font-weight: bold;">₹1198</span></p>
-          
-           <div class="product-grid">
-              
-               <!-- Product 1: High-Visibility Reflective Safety Vest -->
-               <div class="product-card">
-                   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQwEoAV44KECXE27Xtts3y6fWPky5qImf6AQg&s"
-                        alt="High-Visibility Reflective Safety Vest"
-                        onerror="this.onerror=null; this.src='https://placehold.co/120x120/e9ecef/6c757d?text=Reflective+Vest';"
-                        width="120" height="120">
-                   <div class="product-name">High-Visibility Reflective Safety Vest</div>
-                   <p class="product-desc">Neon color and 3M reflective strips for day and night visibility.</p>
-                   <div class="product-price">₹1198</div>
-                   <a href="#" class="btn-add-cart" onclick="addToCart('Reflective Safety Vest', 1198)">Add to Cart</a>
-               </div>
-              
-               <!-- Product 2: Foldable Emergency Warning Triangle -->
-               <div class="product-card">
-                   <img src="https://m.media-amazon.com/images/S/aplus-media-library-service-media/c3909d01-9cfd-406b-9627-28817b621254.__CR0,0,800,600_PT0_SX800_V1___.jpg"
-                        alt="Foldable Emergency Warning Triangle"
-                        onerror="this.onerror=null; this.src='https://placehold.co/120x120/dc3545/ffffff?text=WARNING+TRIANGLE';"
-                        width="120" height="120">
-                   <div class="product-name">Foldable Emergency Warning Triangle</div>
-                   <p class="product-desc">Highly reflective for placement behind a disabled vehicle at night.</p>
-                   <div class="product-price">₹1198</div>
-                   <a href="#" class="btn-add-cart" onclick="addToCart('Warning Triangle', 1198)">Add to Cart</a>
-               </div>
-              
-               <!-- Product 3: Multi-Functional Safety Hammer & Seatbelt Cutter -->
-               <div class="product-card">
-                   <img src="https://i5.walmartimages.com/seo/Goodyear-Standard-2-in-1-Safety-Hammer-GY3028-Window-Breaker-Seat-Belt-Cutter-Escape-Tool-Car-Truck-Emergency-Escape-Glass-Hammer-Auto-Accessory-Blue_cca8de6d-d3ee-43f0-914e-8caebaf6688a.91d496dffb77ce7f2762669162138ff4.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF"
-                        alt="Multi-Functional Safety Hammer & Seatbelt Cutter"
-                        onerror="this.onerror=null; this.src='https://placehold.co/120x120/333333/ffffff?text=SAFETY+HAMMER';"
-                        width="120" height="120">
-                   <div class="product-name">Multi-Functional Safety Hammer & Seatbelt Cutter</div>
-                   <p class="product-desc">Essential tool for breaking windows and cutting trapped seat belts in an emergency.</p>
-                   <div class="product-price">₹1198</div>
-                   <a href="#" class="btn-add-cart" onclick="addToCart('Safety Hammer', 1198)">Add to Cart</a>
-               </div>
-              
-               <!-- Product 4: Tyre Puncture Repair Kit -->
-               <div class="product-card">
-                   <img src="https://static1.industrybuying.com/products/automotive-maintenance-and-accessories/vehicle-tools/tyre-repair-tools-kit/AUT.TYR.89074128_1682946754304.webp"
-                        alt="Tyre Puncture Repair Kit"
-                        onerror="this.onerror=null; this.src='https://placehold.co/120x120/28a745/ffffff?text=PUNCTURE+KIT';"
-                        width="120" height="120">
-                   <div class="product-name">Tyre Puncture Repair Kit</div>
-                   <p class="product-desc">Self-repair kit for tubeless tyres, quick fix on the go.</p>
-                   <div class="product-price">₹1198</div>
-                   <a href="#" class="btn-add-cart" onclick="addToCart('Puncture Repair Kit', 1198)">Add to Cart</a>
-               </div>
-              
-               <!-- Product 5: LED Based Traffic / Emergency Flasher Light -->
-               <div class="product-card">
-                   <img src="https://m.media-amazon.com/images/I/31Um20q7liL._AC_UF894,1000_QL80_.jpg"
-                        alt="LED Based Traffic / Emergency Flasher Light"
-                        onerror="this.onerror=null; this.src='https://placehold.co/120x120/007bff/ffffff?text=LED+FLASHER';"
-                        width="120" height="120">
-                   <div class="product-name">LED Based Traffic / Emergency Flasher Light</div>
-                   <p class="product-desc">Powerful LED blinking light, essential for creating a safety perimeter during an accident.</p>
-                   <div class="product-price">₹1198</div>
-                   <a href="#" class="btn-add-cart" onclick="addToCart('Emergency Flasher', 1198)">Add to Cart</a>
-               </div>
-           </div>
-           <a href="#" onclick="showPage('checkout_step1')" class="btn-shop" style="margin-top: 40px; width: auto; display: block; text-align: center;">🛒 Proceed to Checkout</a>
-       </div>
-
-
-       <!-- 3. CHECKOUT STEPS -->
-       <div id="checkout_step1" style="display:none;">
-           <div class="step-indicator">
-               <div class="step active" id="step1_name">1. Cart</div>
-               <div class="step" id="step2_name">2. Details</div>
-               <div class="step" id="step3_name">3. Payment</div>
-           </div>
-           <div class="step-content">
-               <h2>🛍️ Step 1: Cart Review</h2>
-               <div id="cart_items">
-                   <p style="text-align: center;">Your cart is empty. Please shop.</p>
-               </div>
-               <div class="cart-total" id="cart_total_display">
-                   Total: ₹0
-               </div>
-               <a href="#" class="btn-primary" onclick="validateCartAndProceed()">Proceed to Details</a>
-           </div>
-       </div>
-
-
-       <div id="checkout_step2" style="display:none;">
-           <div class="step-indicator">
-               <div class="step active">1. Cart</div>
-               <div class="step active">2. Details</div>
-               <div class="step">3. Payment</div>
-           </div>
-           <div class="step-content">
-               <h2>👤 Step 2: Personal Details & Address</h2>
-               <form id="details_form">
-                   <label for="name">Full Name:</label>
-                   <input type="text" id="name" required>
-                   <label for="email">Email Address:</label>
-                   <input type="email" id="email" required>
-                   <label for="tel">Mobile Number:</label>
-                   <input type="tel" id="tel" required>
-                   <label for="address">Shipping Address:</label>
-                   <input type="text" id="address" required>
-                   <label for="pincode">Pincode:</label>
-                   <input type="text" id="pincode" required>
-                   <a href="#" class="btn-primary" onclick="validateAndProceed()">Proceed to Payment</a>
-               </form>
-           </div>
-       </div>
-
-
-       <div id="checkout_step3" style="display:none;">
-           <div class="step-indicator">
-               <div class="step active">1. Cart</div>
-               <div class="step active">2. Details</div>
-               <div class="step active">3. Payment</div>
-           </div>
-           <div class="step-content">
-               <h2>💳 Step 3: Payment</h2>
-               <p><strong>Amount Payable: <span style="color: #dc3545;" id="final_amount_display">₹0</span></strong></p>
-               <form>
-                   <label for="payment_method">Select Payment Method:</label>
-                   <select id="payment_method" required>
-                       <option value="card">Credit / Debit Card</option>
-                       <option value="upi">UPI / QR Code</option>
-                       <option value="netbanking">Net Banking</option>
-                       <option value="cod">Cash on Delivery (COD)</option>
-                   </select>
-                   <p style="margin-top: 25px; color: #555;">*This will be processed via a secure payment gateway.</p>
-                   <a href="#" class="btn-primary" onclick="showPage('thankyou_page')">Place Order</a>
-               </form>
-           </div>
-       </div>
-      
-       <!-- 4. THANK YOU PAGE -->
-       <div id="thankyou_page" style="display:none;">
-           <div class="thank-you">
-               <h2>✅ Thank You!</h2>
-               <p>Your order has been placed successfully.</p>
-               <p>Your Order Number is: <strong>#RS-${Math.floor(Math.random() * 90000) + 10000}</strong>.</p>
-               <p>Thank you for your purchase.</p>
-               <a href="#" onclick="showPage('home_page')" style="color: #007bff; display: block; margin-top: 20px;">Go back to Home Page</a>
-           </div>
-       </div>
-
-
-       <!-- 5. ROAD SAFETY GUIDE PAGE (Approx. 1500 Words Content) -->
-       <div id="safety_guide_page" style="display:none;" class="static-page">
-           <h2>📖 The Ultimate Road Safety Guide: Drive Defensively, Live Safely</h2>
-          
-           <p>Welcome to our comprehensive guide on **road safety**. Driving is a privilege and a responsibility, and mastering **defensive driving** techniques is the best way to protect yourself, your passengers, and others on the road. Accidents are often preventable, and by cultivating **safe driving habits** and ensuring proper **vehicle maintenance**, you can dramatically reduce risks. This guide provides essential knowledge, from preparing your car for emergencies to navigating common road hazards.</p>
-          
-           <h3>Section 1: The Foundations of Defensive Driving</h3>
-          
-           <p>**Defensive driving** means anticipating dangerous situations, making smart choices, and acting in time to avoid accidents. It goes beyond simply following **traffic laws**; it’s about understanding human and mechanical limitations and compensating for them. A key principle is maintaining a safe following distance. The recommended "three-second rule" should be extended to four or more seconds in adverse conditions (rain, snow, ice) or when driving large vehicles. This simple measure gives you critical reaction time.</p>
-
-
-           <p>Another crucial element of **safe driving habits** is managing speed. Always drive according to the conditions, not just the posted speed limit. If visibility is poor or traffic is heavy, slow down. Scanning the environment is also vital; look 10-15 seconds ahead, not just at the car in front of you. Continuously check your mirrors to be aware of your surroundings, especially before changing lanes or braking.</p>
-          
-           <p>Furthermore, managing your **blind spots** is non-negotiable. Adjust your side mirrors correctly (so you barely see the side of your own car) and always perform a quick shoulder check before merging or changing lanes. Never assume other drivers see you, especially motorcyclists or cyclists. Driving defensively means expecting the unexpected—a child running into the street, a car suddenly braking, or debris on the road. </p>
-
-
-           <h3>Section 2: Essential Vehicle Maintenance and Readiness</h3>
-          
-           <p>A well-maintained vehicle is a safe vehicle. Regular **vehicle maintenance** is a core component of **road safety**. Your tires are the only point of contact with the road, making **tire pressure** and tread depth incredibly important. Check your tire pressure monthly, including the spare, and ensure it matches the manufacturer’s recommendations (found on the door jamb or in the owner’s manual), not the maximum pressure listed on the tire wall. Incorrect tire pressure affects handling, braking, and fuel efficiency.</p>
-          
-           <p>Brakes must be regularly inspected. Listen for squealing or grinding noises, and notice any change in pedal feel (sponginess or difficulty pressing). Ensure all lights are functional: headlights (low and high beams), turn signals, brake lights, and hazard lights. Faulty lighting is a major **road safety** hazard, especially at night or in bad weather.</p>
-          
-           <p>Fluids are the lifeblood of your car: check oil, coolant, brake fluid, and windshield washer fluid levels. Wiper blades should be replaced every 6 to 12 months, as clear visibility is paramount. Don't forget your **Emergency Kit**. This kit is your lifeline in a roadside breakdown. Our store offers vital components like the **Warning Triangle** and **LED Flasher Light**, which are essential for alerting other drivers to your disabled vehicle and preventing secondary accidents.</p>
-          
-           <h3>Section 3: Avoiding Distractions and Impairments</h3>
-          
-           <p>The rise of technology has made **distracted driving** one of the leading causes of accidents globally. Distractions can be visual (taking your eyes off the road), manual (taking your hands off the wheel), or cognitive (taking your mind off driving). Texting combines all three and is incredibly dangerous. Simply put: put your phone away. Even hands-free devices can create a cognitive load that impairs your ability to react swiftly to hazards. [Image of the dangers of distracted driving]</p>
-          
-           <p>Never drive under the influence of alcohol, illegal drugs, or certain prescription medications. Impaired driving slows reaction time, reduces coordination, and clouds judgment. If you feel tired, pull over. Fatigue is just as dangerous as intoxication. Drowsy driving drastically impairs cognitive function, making it difficult to maintain lane position, monitor speed, and sustain attention. Taking short, frequent breaks on long journeys is a simple but effective **safe driving habit**.</p>
-          
-           <h3>Section 4: Managing Emergencies and Accidents</h3>
-          
-           <p>Even the most careful driver can encounter an emergency. Knowing how to react is crucial. If your car breaks down, prioritize safety. Turn on your hazard lights immediately. If possible, steer the vehicle off the road and onto the shoulder. Once safe, put on your **Reflective Safety Vest** (available in our listing) before exiting the vehicle, especially if it's dark or foggy. Place your **Warning Triangle** 50-100 meters behind your vehicle to give approaching drivers ample warning. This is a crucial step in preventing high-speed collisions with stationary vehicles.</p>
-          
-           <p>Every vehicle should have a comprehensive **First Aid** kit. Minor injuries, such as cuts or scrapes from broken glass, can be managed on the spot. If you are involved in a collision, ensure you, your passengers, and the occupants of the other vehicle are safe. Call the emergency services (**100/112**) immediately. Do not admit fault or argue. Exchange insurance and contact information, and take photos of the scene. Our **Safety Hammer** is designed to quickly cut a jammed seatbelt and break a window, a life-saving tool when doors are jammed or submerged.</p>
-          
-           <p>Dealing with tire issues is also common. Our **Puncture Repair Kit** allows for quick, temporary fixes for tubeless tires, getting you to the nearest service center safely. If a tire blows out, resist the urge to slam the brakes. Hold the steering wheel firmly, ease off the accelerator, and gently steer to the side of the road once speed has decreased.</p>
-          
-           <h3>Section 5: Road Rules and Advanced Safety Tips (Continued)</h3>
-          
-           <p>Understanding and respecting **traffic laws** is paramount to **road safety**. This includes adhering to speed limits, correctly using indicators, and respecting right-of-way. However, **defensive driving** requires you to go beyond the minimum legal requirements. For example, when approaching an intersection, even if you have a green light, glance left and right to confirm that no one is running a red light. This proactive behavior is a hallmark of **safe driving habits**.</p>
-          
-           <p>Driving in bad weather—heavy rain, fog, or dust storms—demands extra caution. Reduce your speed significantly. Use low-beam headlights in rain or fog, as high beams reflect off water droplets or fog, making visibility worse. In heavy rain, be mindful of hydroplaning, where your tires lose contact with the road surface due to a layer of water. If you feel this happening, ease off the accelerator, and steer straight until the tires regain traction.</p>
-
-
-           <p>Be patient and courteous. Road rage is a dangerous contributor to accidents. If another driver is aggressive or driving recklessly, do not engage. Let them pass, and maintain distance. Your primary goal is to reach your destination safely. Regular practice of these **safe driving habits** will make you a better, more secure driver for the long term. Investing in high-quality **emergency kit** items like those in our shop is a small price to pay for peace of mind. Remember, every time you get behind the wheel, you hold the power to prevent an accident. Drive safely!</p>
-          
-           <!-- End of 1500+ word safety content -->
-       </div>
-
-
-       <!-- 6. ABOUT US PAGE -->
-       <div id="about_page" style="display:none;" class="static-page">
-           <h2>ℹ️ About Us: Committed to Road Safety</h2>
-           <p>At Road Safety Tools, our mission is simple: to make Indian roads safer, one driver at a time. We believe that preparedness is the best defense against unforeseen emergencies. Our company was founded on the principle that essential, high-quality safety equipment should be accessible and affordable to every vehicle owner.</p>
-          
-           <h3>Our Commitment</h3>
-           <p>We carefully curate a selection of the most vital road safety products—from high-visibility vests to life-saving emergency hammers. By maintaining a single, fixed price point (₹1198), we ensure transparency and value, eliminating the complexity of variable pricing across different critical tools. Our products are tested for reliability and compliance with safety standards, giving you peace of mind on every journey.</p>
-          
-           <h3>Why Preparedness Matters</h3>
-           <p>In an emergency, every second counts. Having a reliable **Emergency Kit** in your vehicle can be the difference between a minor incident and a catastrophe. We are dedicated to promoting **road safety** awareness and providing the tools necessary for **defensive driving** and roadside security.</p>
-       </div>
-
-
-       <!-- 7. CONTACT US PAGE -->
-       <div id="contact_page" style="display:none;" class="static-page">
-           <h2>📞 Contact Us</h2>
-           <p>We are here to help you with any questions regarding our products, orders, or road safety advice.</p>
-          
-           <h3>Customer Service</h3>
-           <p><strong>Email:</strong> support@roadsafetytools.in</p>
-           <p><strong>Phone:</strong> +91 98765 43210 (Mon-Fri, 9:00 AM - 6:00 PM IST)</p>
-
-
-           <h3>Corporate Address</h3>
-           <p>Road Safety Tools India Pvt. Ltd.</p>
-           <p>101, Safety Hub Building,</p>
-           <p>New Delhi - 110001, India</p>
-
-
-           <h3>Send Us a Message</h3>
-           <form>
-               <label for="c_name">Your Name:</label>
-               <input type="text" id="c_name" required>
-               <label for="c_email">Your Email:</label>
-               <input type="email" id="c_email" required>
-               <label for="c_message">Message:</label>
-               <textarea id="c_message" rows="5" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1em; margin-top: 5px;" required></textarea>
-               <button type="submit" class="btn-primary" style="margin-top: 20px;">Send Message</button>
-           </form>
-       </div>
-
-
-       <!-- 8. FAQ PAGE -->
-       <div id="faq_page" style="display:none;" class="static-page">
-           <h2>❓ Frequently Asked Questions (FAQ)</h2>
-          
-           <div class="faq-item">
-               <strong>Q: Why is every item priced at ₹1198?</strong>
-               <p>A: We maintain a fixed price for all essential safety items to ensure a simple, transparent, and fair pricing model. This eliminates confusion and guarantees you get a high-quality product at a consistent value.</p>
-           </div>
-          
-           <div class="faq-item">
-               <strong>Q: How long does shipping take?</strong>
-               <p>A: Orders are typically delivered within 5-7 business days across India. You will receive a tracking number via email once your order is shipped.</p>
-           </div>
-          
-           <div class="faq-item">
-               <strong>Q: What should I do if my **Tyre Puncture Repair Kit** is incomplete?</strong>
-               <p>A: Please contact our customer support immediately via email or phone. We will arrange for a replacement or a full refund as quickly as possible. Customer **road safety** is our priority.</p>
-           </div>
-
-
-           <div class="faq-item">
-               <strong>Q: What is **Defensive Driving**?</strong>
-               <p>A: **Defensive Driving** is a set of driving skills that allows you to defend yourself against possible collisions caused by bad drivers, drunk drivers, and poor weather. It's about anticipating hazards and keeping a safe margin for error.</p>
-           </div>
-       </div>
-
-
-   </div>
-
-
-   <script>
-       // Updated list of all pages for navigation logic
-       const pages = ['home_page', 'listing_page', 'safety_guide_page', 'about_page', 'contact_page', 'faq_page', 'checkout_step1', 'checkout_step2', 'checkout_step3', 'thankyou_page'];
-       let cart = []; // Cart is initially empty
-
-
-       /**
-        * Custom function to display a toast notification instead of alert().
-        * @param {string} message The message to display.
-        * @param {string} type 'success', 'error', or 'info'.
-        */
-       function showToast(message, type = 'info') {
-           const container = document.getElementById('toast-container');
-           if (!container) return;
-
-
-           const toast = document.createElement('div');
-           toast.className = `toast ${type}`;
-           toast.innerText = message;
-          
-           container.prepend(toast); // Add new toast at the top
-
-
-           // Show animation
-           setTimeout(() => {
-               toast.classList.add('show');
-           }, 10);
-
-
-           // Hide and remove after 3 seconds
-           setTimeout(() => {
-               toast.classList.remove('show');
-               // Wait for fade-out transition to complete before removing
-               setTimeout(() => {
-                   container.removeChild(toast);
-               }, 500);
-           }, 3000);
-       }
-
-
-       function showPage(pageId) {
-           // Hide all pages
-           pages.forEach(id => {
-               const element = document.getElementById(id);
-               if (element) element.style.display = 'none';
-           });
-           // Show the selected page
-           const currentPage = document.getElementById(pageId);
-           if (currentPage) currentPage.style.display = 'block';
-          
-           // Update cart display whenever page changes (especially relevant for steps 1 and 3)
-           updateCartDisplay();
-          
-           // Update step indicators only if on a checkout page
-           if (pageId.startsWith('checkout_step')) {
-               updateStepIndicators(pageId);
-           }
-       }
-
-
-       function updateStepIndicators(pageId) {
-           // Clear all active classes in all step containers
-           document.querySelectorAll('.step-indicator .step').forEach(step => {
-               step.classList.remove('active');
-           });
-          
-           if (pageId === 'checkout_step1') {
-               document.querySelector('#checkout_step1 .step:nth-child(1)').classList.add('active');
-           } else if (pageId === 'checkout_step2') {
-               // Activate steps in both step indicators for visual consistency across pages
-               document.querySelector('#checkout_step2 .step:nth-child(1)').classList.add('active');
-               document.querySelector('#checkout_step2 .step:nth-child(2)').classList.add('active');
-           } else if (pageId === 'checkout_step3') {
-               document.querySelector('#checkout_step3 .step:nth-child(1)').classList.add('active');
-               document.querySelector('#checkout_step3 .step:nth-child(2)').classList.add('active');
-               document.querySelector('#checkout_step3 .step:nth-child(3)').classList.add('active');
-           }
-       }
-
-
-       function addToCart(productName, price) {
-           const existingItem = cart.find(item => item.name === productName);
-           if (existingItem) {
-               existingItem.qty += 1;
-           } else {
-               cart.push({ name: productName, price: price, qty: 1 });
-           }
-          
-           const totalItems = cart.reduce((acc, item) => acc + item.qty, 0);
-           showToast(productName + ' (₹' + price + ') added to cart! (Total items: ' + totalItems + ')', 'success');
-          
-           updateCartDisplay();
-       }
-
-
-       function updateCartDisplay() {
-           const cartItemsContainer = document.getElementById('cart_items');
-           const cartTotalDisplay = document.getElementById('cart_total_display');
-           const finalAmountDisplay = document.getElementById('final_amount_display');
-          
-           // Only proceed if elements exist
-           if (!cartItemsContainer && !cartTotalDisplay && !finalAmountDisplay) return;
-
-
-           if (cartItemsContainer) cartItemsContainer.innerHTML = '';
-           let total = 0;
-
-
-           if (cart.length === 0) {
-               if (cartItemsContainer) cartItemsContainer.innerHTML = '<p style="text-align: center; color: #dc3545; font-weight: bold; padding: 10px;">Your cart is empty. Please shop.</p>';
-           } else {
-               cart.forEach(item => {
-                   const subtotal = item.price * item.qty;
-                   total += subtotal;
-                   const itemDiv = document.createElement('div');
-                   itemDiv.className = 'cart-item';
-                   // Use a more standard number format for display in English context
-                   itemDiv.innerHTML = `<span>${item.name} (Qty: ${item.qty})</span><span>₹${subtotal.toLocaleString('en-IN')}</span>`;
-                   if (cartItemsContainer) cartItemsContainer.appendChild(itemDiv);
-               });
-           }
-          
-           const formattedTotal = total.toLocaleString('en-IN');
-          
-           if (cartTotalDisplay) {
-               cartTotalDisplay.innerText = `Total: ₹${formattedTotal}`;
-           }
-           if(finalAmountDisplay) {
-               finalAmountDisplay.innerText = `₹${formattedTotal}`;
-           }
-       }
-      
-       function validateCartAndProceed() {
-           if (cart.length === 0) {
-               showToast('Please add a product to the cart before proceeding.', 'error');
-               showPage('listing_page');
-           } else {
-               showPage('checkout_step2');
-           }
-       }
-
-
-       function validateAndProceed() {
-           const name = document.getElementById('name').value;
-           const email = document.getElementById('email').value;
-           const tel = document.getElementById('tel').value;
-           const address = document.getElementById('address').value;
-           const pincode = document.getElementById('pincode').value;
-
-
-           // Simple validation
-           if (!name || !email || !tel || !address || !pincode) {
-               showToast('Please fill in all required details.', 'error');
-               return;
-           }
-          
-           // Simple phone number validation (at least 10 digits)
-           if (tel.length < 10 || isNaN(tel)) {
-               showToast('Please enter a valid mobile number (min 10 digits).', 'error');
-               return;
-           }
-
-
-           // Simple email validation
-           if (!email.includes('@') || !email.includes('.')) {
-               showToast('Please enter a valid email address.', 'error');
-               return;
-           }
-          
-           showPage('checkout_step3');
-       }
-
-
-       // Initial load: show the home page
-       document.addEventListener('DOMContentLoaded', () => {
-           showPage('home_page');
-       });
-   </script>
+<body class="min-h-screen flex flex-col items-center p-4">
+
+    <!-- Header Steps -->
+    <div class="w-full max-w-2xl flex justify-between items-center mb-8 px-4">
+        <div class="flex flex-col items-center gap-1">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center step-active font-bold">1</div>
+            <span class="text-[10px] font-bold text-blue-600">VEHICLE</span>
+        </div>
+        <div class="h-[2px] flex-1 bg-blue-600 mx-2"></div>
+        <div class="flex flex-col items-center gap-1">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center step-active font-bold">2</div>
+            <span class="text-[10px] font-bold text-blue-600">PERSONAL</span>
+        </div>
+        <div class="h-[2px] flex-1 bg-blue-600 mx-2"></div>
+        <div class="flex flex-col items-center gap-1">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center step-active font-bold">3</div>
+            <span class="text-[10px] font-bold text-blue-600">PAYMENT</span>
+        </div>
+        <div class="h-[2px] flex-1 bg-gray-300 mx-2"></div>
+        <div class="flex flex-col items-center gap-1">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center step-active font-bold border-2 border-blue-600">4</div>
+            <span class="text-[10px] font-bold text-blue-600">SUCCESS</span>
+        </div>
+    </div>
+
+    <!-- Main Booking Card -->
+    <div class="w-full max-w-lg glass-morphism rounded-[40px] shadow-2xl p-8 text-center relative mb-10">
+        <div class="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-green-200">
+            <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        
+        <h1 class="text-3xl font-extrabold text-gray-900 mb-2">Booking Received!</h1>
+        <p class="text-gray-500 mb-8">Verification process has started.</p>
+
+        <!-- Digital Receipt Box -->
+        <div class="bg-gray-50 rounded-3xl p-6 text-left mb-8 border border-gray-100">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-[10px] font-bold text-gray-400 tracking-widest">DIGITAL RECEIPT</span>
+                <span class="bg-blue-100 text-blue-600 text-[10px] font-bold px-3 py-1 rounded-full uppercase">Processing</span>
+            </div>
+            
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-gray-400 text-sm">Vehicle No.</span>
+                    <span class="font-bold text-gray-800">65435YY56</span>
+                </div>
+                <div class="flex justify-between items-center border-t border-gray-200 pt-3">
+                    <span class="text-gray-400 text-sm">Reference ID</span>
+                    <span class="font-bold text-gray-800">HSR-866976</span>
+                </div>
+                <div class="flex justify-between items-center border-t border-gray-200 pt-3">
+                    <span class="text-gray-400 text-sm">Transaction ID</span>
+                    <span class="font-mono text-xs font-bold text-gray-800 break-all ml-4">hasjdgvhjsdfgbdfg</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="space-y-4">
+            <button onclick="toggleChat()" class="w-full bg-blue-50 border-2 border-blue-100 text-blue-600 font-bold py-4 rounded-2xl flex items-center justify-center gap-3 hover:bg-blue-100 transition-all">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                Need Help? Talk to AI
+            </button>
+            <button class="w-full bg-gray-900 text-white font-bold py-4 rounded-2xl hover:bg-black transition-all">
+                Go Back Home
+            </button>
+        </div>
+    </div>
+
+    <!-- AI Chat Modal -->
+    <div id="chatModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="w-full max-w-md bg-white rounded-[32px] overflow-hidden shadow-2xl flex flex-col">
+            <!-- Chat Header -->
+            <div class="bg-blue-600 p-6 flex justify-between items-center text-white">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="font-bold">Support Assistant</h3>
+                        <div class="flex items-center gap-1">
+                            <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                            <span class="text-[10px] opacity-80 uppercase tracking-widest font-bold">Live Help</span>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" class="hover:bg-white/10 p-2 rounded-full transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <!-- Messages Area -->
+            <div id="messages" class="chat-container p-6 space-y-4 bg-gray-50 flex-1">
+                <div class="flex flex-col items-start">
+                    <div class="bg-blue-600 text-white p-4 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm">
+                        Namaste! I found the booking for 65435YY56. Payment verification is currently in progress (2-4 hours). How can I assist you today?
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-6 bg-white border-t border-gray-100">
+                <div class="relative flex items-center gap-2">
+                    <input type="text" id="userInput" placeholder="Type your message..." 
+                           class="w-full bg-gray-100 border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-blue-600 outline-none transition-all">
+                    
+                    <!-- Hidden File Input for QR/Images -->
+                    <input type="file" id="fileInput" class="hidden" accept="image/*">
+                    <button onclick="document.getElementById('fileInput').click()" class="absolute right-16 text-gray-400 hover:text-blue-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </button>
+
+                    <button onclick="sendMessage()" class="bg-blue-600 text-white p-4 rounded-2xl hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all">
+                        <svg class="w-5 h-5 transform rotate-90" fill="currentColor" viewBox="0 0 20 20"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"></path></svg>
+                    </button>
+                </div>
+                <p id="errorMsg" class="text-red-500 text-[10px] mt-2 hidden"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURATION (Bhai, yahan apni details dalo) ---
+        const firebaseConfig = {
+            apiKey: "AiZaSyBfF7PTAidu iPr7mcU_Abhw_58HMy-6VCw", // Space hatana screenshot se dekh kar
+            authDomain: "hsp-chat-box-api.firebaseapp.com",
+            projectId: "hsp-chat-box-api",
+            storageBucket: "hsp-chat-box-api.firebasestorage.app",
+            messagingSenderId: "573359693574",
+            appId: "1:573359693574:web:7c628a3c1b92d8bc5b0887"
+        };
+        
+        // Gemini API Key (Aapka API Key yahan paste karein)
+        const GEMINI_API_KEY = ""; 
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        function toggleChat() {
+            const modal = document.getElementById('chatModal');
+            modal.classList.toggle('hidden');
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            addMessage(message, 'user');
+            input.value = '';
+
+            try {
+                // Save to Firestore (Public Collection)
+                await db.collection('artifacts').doc('hsrp-support').collection('public').add({
+                    text: message,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    sender: 'user'
+                });
+
+                // Get AI Response from Gemini
+                const aiResponse = await getGeminiResponse(message);
+                addMessage(aiResponse, 'ai');
+
+            } catch (err) {
+                console.error(err);
+                addMessage("I'm having a slight connection issue. Please check your Firebase rules or Internet.", 'ai');
+            }
+        }
+
+        async function getGeminiResponse(userPrompt) {
+            if(!GEMINI_API_KEY) return "Bhai, pehle Gemini API Key code mein daalo tabhi main reply kar paunga.";
+
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
+            
+            const payload = {
+                contents: [{
+                    parts: [{ text: `You are a helpful HSRP (High Security Registration Plate) Support Assistant. Help the user with their booking 65435YY56. User said: ${userPrompt}` }]
+                }]
+            };
+
+            const response = await fetch(url, {
+                method: 'POST',
+                body: JSON.stringify(payload)
+            });
+            const data = await response.json();
+            return data.candidates[0].content.parts[0].text;
+        }
+
+        function addMessage(text, sender) {
+            const container = document.getElementById('messages');
+            const div = document.createElement('div');
+            div.className = `flex flex-col ${sender === 'user' ? 'items-end' : 'items-start'}`;
+            
+            const innerDiv = document.createElement('div');
+            innerDiv.className = sender === 'user' 
+                ? 'bg-white border border-gray-200 text-gray-800 p-4 rounded-2xl rounded-tr-none max-w-[85%] shadow-sm'
+                : 'bg-blue-600 text-white p-4 rounded-2xl rounded-tl-none max-w-[85%] shadow-sm';
+            
+            innerDiv.innerText = text;
+            div.appendChild(innerDiv);
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Image Selection Handler
+        document.getElementById('fileInput').onchange = function(e) {
+            const file = e.target.files[0];
+            if(file) {
+                addMessage(`Uploading ${file.name}...`, 'user');
+                // Note: Real file upload needs Firebase Storage. 
+                // For now, we simulate success.
+                setTimeout(() => {
+                    addMessage("QR received and verified. Please proceed with payment.", 'ai');
+                }, 1500);
+            }
+        };
+    </script>
 </body>
 </html>
-
-
-
