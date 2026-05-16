@@ -1,154 +1,277 @@
-# index.html
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>HSRP Booking Portal</title>
+
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
 body{
 font-family:'Inter',sans-serif;
-background:#f1f5f9;
+background:#f5f7fb;
 overflow-x:hidden;
 }
-.hidden{display:none}
-.step-transition{transition:.3s ease}
 
-@keyframes fadeIn{
-from{opacity:0;transform:translateY(10px)}
-to{opacity:1;transform:translateY(0)}
-}
-.animate-fade-in{
-animation:fadeIn .3s ease;
+.hidden{
+display:none;
 }
 
-.typing-dot{
-width:5px;
-height:5px;
+.fade{
+animation:fade .3s ease;
+}
+
+@keyframes fade{
+from{
+opacity:0;
+transform:translateY(10px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.chat-scroll::-webkit-scrollbar{
+width:4px;
+}
+
+.chat-scroll::-webkit-scrollbar-thumb{
+background:#cbd5e1;
+border-radius:20px;
+}
+
+.typing{
+display:flex;
+gap:5px;
+}
+
+.typing span{
+width:6px;
+height:6px;
 background:white;
 border-radius:50%;
-display:inline-block;
-animation:bounce 1.4s infinite ease-in-out both;
+animation:bounce 1.2s infinite;
 }
-.typing-dot:nth-child(1){animation-delay:-0.32s}
-.typing-dot:nth-child(2){animation-delay:-0.16s}
+
+.typing span:nth-child(2){
+animation-delay:.2s;
+}
+
+.typing span:nth-child(3){
+animation-delay:.4s;
+}
 
 @keyframes bounce{
-0%,80%,100%{transform:scale(0)}
-40%{transform:scale(1)}
+0%,80%,100%{
+transform:scale(0);
 }
+40%{
+transform:scale(1);
+}
+}
+
 </style>
 </head>
 
-<body class="min-h-screen p-3 md:p-6 flex justify-center">
+<body class="min-h-screen p-3 md:p-8">
 
-<div class="w-full max-w-2xl">
+<div class="max-w-3xl mx-auto">
 
-<div class="bg-white rounded-3xl shadow-xl p-5 md:p-8">
+<!-- HEADER -->
+<div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
 
-<div class="flex items-center gap-3 mb-8">
-<div class="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center text-white font-bold text-xl">H</div>
+<div class="flex items-center gap-3">
+
+<div class="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+H
+</div>
+
 <div>
-<h1 class="text-2xl font-bold text-gray-900">HSRP Booking</h1>
-<p class="text-xs text-gray-500 uppercase tracking-widest">Vehicle Plate Booking Portal</p>
+<h1 class="text-2xl font-bold text-gray-900">
+HSRP Booking
+</h1>
+
+<p class="text-xs text-gray-500 font-semibold uppercase tracking-widest">
+Vehicle Plate Booking
+</p>
+</div>
+
+</div>
+
+<button onclick="openChat()"
+class="bg-white border border-gray-200 px-5 py-3 rounded-2xl text-sm font-semibold shadow-sm hover:bg-gray-50 transition">
+Need Help?
+</button>
+
+</div>
+
+<!-- STEPPER -->
+
+<div class="mb-8">
+
+<div class="flex justify-between relative">
+
+<div class="absolute top-4 left-0 w-full h-1 bg-gray-200 rounded-full">
+<div id="progressBar"
+class="h-full bg-blue-600 rounded-full transition-all duration-500"
+style="width:0%">
 </div>
 </div>
 
-<div class="flex justify-between mb-8 relative">
-<div class="absolute left-0 top-4 h-1 bg-gray-200 w-full rounded-full"></div>
-<div id="progressBar" class="absolute left-0 top-4 h-1 bg-blue-600 rounded-full transition-all duration-500" style="width:0%"></div>
-
-<div class="relative z-10 text-center">
-<div id="c1" class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold mx-auto">1</div>
-<p class="text-[10px] mt-2 font-bold">Vehicle</p>
+<div class="relative z-10 flex flex-col items-center">
+<div id="circle1" class="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">1</div>
+<p class="text-[10px] mt-2 font-bold text-blue-600 uppercase">Vehicle</p>
 </div>
 
-<div class="relative z-10 text-center">
-<div id="c2" class="w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold mx-auto">2</div>
-<p class="text-[10px] mt-2 font-bold">Personal</p>
+<div class="relative z-10 flex flex-col items-center">
+<div id="circle2" class="w-9 h-9 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold">2</div>
+<p class="text-[10px] mt-2 font-bold text-gray-400 uppercase">Personal</p>
 </div>
 
-<div class="relative z-10 text-center">
-<div id="c3" class="w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold mx-auto">3</div>
-<p class="text-[10px] mt-2 font-bold">Payment</p>
+<div class="relative z-10 flex flex-col items-center">
+<div id="circle3" class="w-9 h-9 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold">3</div>
+<p class="text-[10px] mt-2 font-bold text-gray-400 uppercase">Payment</p>
 </div>
 
-<div class="relative z-10 text-center">
-<div id="c4" class="w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold mx-auto">4</div>
-<p class="text-[10px] mt-2 font-bold">Done</p>
+<div class="relative z-10 flex flex-col items-center">
+<div id="circle4" class="w-9 h-9 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold">4</div>
+<p class="text-[10px] mt-2 font-bold text-gray-400 uppercase">Done</p>
 </div>
+
 </div>
+
+</div>
+
+<!-- MAIN CARD -->
+
+<div class="bg-white rounded-[35px] shadow-xl p-5 md:p-10">
 
 <!-- STEP 1 -->
-<div id="step1" class="step-transition">
-<h2 class="text-xl font-bold mb-6">Vehicle Information</h2>
 
-<div class="space-y-4">
+<div id="step1" class="fade">
+
+<h2 class="text-2xl font-bold mb-6 text-gray-900">
+Vehicle Information
+</h2>
+
+<div class="space-y-5">
 
 <div>
-<label class="text-xs font-bold text-gray-500 uppercase">Registration Number</label>
-<input id="regNo" type="text" placeholder="DL01AB1234" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 uppercase font-semibold">
+<label class="text-xs font-bold text-gray-400 uppercase block mb-2">
+Registration Number
+</label>
+
+<input type="text"
+id="regNo"
+placeholder="DL01AB1234"
+class="w-full border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 uppercase font-semibold">
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div>
-<label class="text-xs font-bold text-gray-500 uppercase">Vehicle Class</label>
-<select id="vehicleClass" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold bg-white">
+<label class="text-xs font-bold text-gray-400 uppercase block mb-2">
+Vehicle Class
+</label>
+
+<select id="vehicleClass"
+class="w-full border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold">
+
 <option value="">Select Vehicle</option>
 <option>Two Wheeler</option>
 <option>Four Wheeler</option>
 <option>Commercial Vehicle</option>
+
 </select>
 </div>
 
-<div>
-<label class="text-xs font-bold text-gray-500 uppercase">Chassis No. (Last 5 Digits)</label>
-<input id="chassis" maxlength="5" type="text" placeholder="12345" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 uppercase font-semibold">
-</div>
-</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
 <div>
-<label class="text-xs font-bold text-gray-500 uppercase">Engine No. (Last 5 Digits)</label>
-<input id="engine" maxlength="5" type="text" placeholder="67890" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 uppercase font-semibold">
+<label class="text-xs font-bold text-gray-400 uppercase block mb-2">
+Chassis No (Last 5 Digits)
+</label>
+
+<input type="text"
+id="chassis"
+maxlength="5"
+placeholder="12345"
+class="w-full border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 uppercase font-semibold">
 </div>
 
-<button onclick="nextStep(2)" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl mt-2">Continue</button>
+<div>
+<label class="text-xs font-bold text-gray-400 uppercase block mb-2">
+Engine No (Last 5 Digits)
+</label>
+
+<input type="text"
+id="engine"
+maxlength="5"
+placeholder="67890"
+class="w-full border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 uppercase font-semibold">
+</div>
 
 </div>
+
+<button onclick="goStep2()"
+class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold hover:bg-blue-700 transition">
+Continue
+</button>
+
+</div>
+
 </div>
 
 <!-- STEP 2 -->
-<div id="step2" class="hidden step-transition">
-<h2 class="text-xl font-bold mb-6">Personal Information</h2>
 
-<div class="space-y-4">
+<div id="step2" class="hidden fade">
 
-<div>
-<label class="text-xs font-bold text-gray-500 uppercase">Full Name (As per RC)</label>
-<input id="ownerName" type="text" placeholder="Enter Full Name" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold">
-</div>
+<h2 class="text-2xl font-bold mb-6 text-gray-900">
+Personal Information
+</h2>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div>
-<label class="text-xs font-bold text-gray-500 uppercase">Mobile Number</label>
-<input id="mobile" maxlength="10" type="tel" placeholder="9876543210" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold">
-</div>
+<div class="space-y-5">
 
 <div>
-<label class="text-xs font-bold text-gray-500 uppercase">Email Address</label>
-<input id="email" type="email" placeholder="example@mail.com" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold">
-</div>
+<label class="text-xs font-bold text-gray-400 uppercase block mb-2">
+Full Name (As per RC)
+</label>
+
+<input type="text"
+id="fullName"
+placeholder="Enter Full Name"
+class="w-full border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold">
 </div>
 
 <div>
-<label class="text-xs font-bold text-gray-500 uppercase">State / UT</label>
-<select id="state" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold bg-white">
+<label class="text-xs font-bold text-gray-400 uppercase block mb-2">
+Mobile Number
+</label>
+
+<input type="tel"
+id="mobile"
+maxlength="10"
+placeholder="9876543210"
+class="w-full border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold">
+</div>
+
+<div>
+<label class="text-xs font-bold text-gray-400 uppercase block mb-2">
+State / UT
+</label>
+
+<select id="state"
+class="w-full border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold">
+
 <option value="">Select State / UT</option>
+
 <option>Andhra Pradesh</option>
 <option>Arunachal Pradesh</option>
 <option>Assam</option>
@@ -177,321 +300,424 @@ animation:bounce 1.4s infinite ease-in-out both;
 <option>Uttar Pradesh</option>
 <option>Uttarakhand</option>
 <option>West Bengal</option>
+<option>Andaman and Nicobar Islands</option>
+<option>Chandigarh</option>
+<option>Dadra and Nagar Haveli and Daman and Diu</option>
 <option>Delhi</option>
 <option>Jammu and Kashmir</option>
 <option>Ladakh</option>
-<option>Chandigarh</option>
-<option>Puducherry</option>
-<option>Andaman and Nicobar Islands</option>
-<option>Dadra and Nagar Haveli and Daman and Diu</option>
 <option>Lakshadweep</option>
+<option>Puducherry</option>
+
 </select>
+
 </div>
 
 <div>
-<label class="text-xs font-bold text-gray-500 uppercase">Installation Address</label>
-<textarea id="address" rows="3" placeholder="Full Address" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold"></textarea>
+<label class="text-xs font-bold text-gray-400 uppercase block mb-2">
+Address
+</label>
+
+<textarea id="address"
+rows="3"
+placeholder="Enter Full Address"
+class="w-full border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold"></textarea>
 </div>
 
-<div class="grid grid-cols-2 gap-3">
-<button onclick="prevStep(1)" class="bg-gray-200 text-gray-700 font-bold py-4 rounded-2xl">Back</button>
-<button onclick="nextStep(3)" class="bg-blue-600 text-white font-bold py-4 rounded-2xl">Proceed</button>
+<div class="flex gap-3">
+
+<button onclick="back1()"
+class="w-1/3 bg-gray-100 py-4 rounded-2xl font-bold">
+Back
+</button>
+
+<button onclick="goStep3()"
+class="w-2/3 bg-blue-600 text-white py-4 rounded-2xl font-bold">
+Proceed Payment
+</button>
+
 </div>
 
 </div>
+
 </div>
 
 <!-- STEP 3 -->
-<div id="step3" class="hidden step-transition text-center">
-<h2 class="text-xl font-bold mb-6">Scan & Pay</h2>
 
-<div class="bg-gray-100 rounded-3xl p-5 inline-block border border-dashed border-gray-300">
-<img src="qr.png" alt="QR" class="w-52 h-52 object-contain rounded-2xl bg-white p-2 mx-auto">
-<p id="refId" class="mt-4 text-xs font-bold text-gray-500">Generating Ref...</p>
+<div id="step3" class="hidden fade text-center">
+
+<h2 class="text-2xl font-bold mb-6 text-gray-900">
+Scan & Pay
+</h2>
+
+<div class="bg-gray-50 border border-gray-200 rounded-3xl p-5 inline-block mb-5">
+
+<img src="qr.png"
+alt="QR"
+class="w-52 h-52 object-contain mx-auto">
+
+<p id="refId"
+class="text-xs font-bold text-gray-500 mt-4">
+Ref: --
+</p>
+
 </div>
 
-<div class="mt-6 text-left">
-<label class="text-xs font-bold text-gray-500 uppercase">UTR / Transaction Number</label>
-<input id="utr" type="text" placeholder="Enter Transaction Number" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold">
+<div class="max-w-md mx-auto">
+
+<label class="text-xs font-bold text-gray-400 uppercase block mb-2 text-left">
+UTR / Transaction Number
+</label>
+
+<input type="text"
+id="utr"
+placeholder="Enter Transaction Number"
+class="w-full border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold mb-5">
+
+<button onclick="submitForm()"
+class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold hover:bg-blue-700 transition">
+Submit Booking
+</button>
+
 </div>
 
-<div class="grid grid-cols-2 gap-3 mt-5">
-<button onclick="prevStep(2)" class="bg-gray-200 text-gray-700 font-bold py-4 rounded-2xl">Back</button>
-<button onclick="nextStep(4)" class="bg-blue-600 text-white font-bold py-4 rounded-2xl">Submit</button>
-</div>
 </div>
 
 <!-- STEP 4 -->
-<div id="step4" class="hidden step-transition text-center">
 
-<div class="w-20 h-20 rounded-full bg-green-500 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-green-200">
-<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-<path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+<div id="step4" class="hidden fade text-center">
+
+<div class="w-24 h-24 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+<svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
 </svg>
 </div>
 
-<h2 class="text-3xl font-bold text-gray-900">Booking Submitted</h2>
-<p class="text-gray-500 mt-2">Verification process started successfully.</p>
+<h2 class="text-3xl font-bold text-gray-900 mb-3">
+Thank You!
+</h2>
 
-<div class="bg-gray-50 rounded-3xl p-6 mt-8 text-left border border-gray-100">
-<div class="flex justify-between items-center mb-4">
-<h3 class="font-bold text-sm">Booking Details</h3>
-<span class="bg-blue-100 text-blue-700 text-[10px] px-3 py-1 rounded-full font-bold">PROCESSING</span>
+<p class="text-gray-500 mb-8">
+Your booking request has been submitted successfully.
+</p>
+
+<div class="bg-gray-50 border border-gray-200 rounded-3xl p-6 text-left mb-8">
+
+<div class="flex justify-between mb-4">
+<span class="text-gray-500 text-sm">
+Vehicle Number
+</span>
+
+<span id="finalReg"
+class="font-bold text-gray-900">
+--
+</span>
 </div>
 
-<div class="space-y-3 text-sm">
+<div class="flex justify-between mb-4">
+<span class="text-gray-500 text-sm">
+Reference ID
+</span>
+
+<span id="finalRef"
+class="font-bold text-gray-900">
+--
+</span>
+</div>
+
 <div class="flex justify-between">
-<span class="text-gray-500">Vehicle Number</span>
-<span id="finalReg" class="font-bold"></span>
-</div>
+<span class="text-gray-500 text-sm">
+Transaction Number
+</span>
 
-<div class="flex justify-between">
-<span class="text-gray-500">Reference ID</span>
-<span id="finalRef" class="font-bold"></span>
-</div>
-
-<div class="flex justify-between border-t pt-3">
-<span class="text-gray-500">Transaction Number</span>
-<span id="finalUtr" class="font-bold"></span>
-</div>
-</div>
-</div>
-
-<div class="mt-8 text-left space-y-5">
-
-<div class="flex gap-4">
-<div class="w-3 h-3 bg-blue-600 rounded-full mt-1"></div>
-<div>
-<p class="font-bold text-sm">Payment Verification</p>
-<p class="text-xs text-gray-500">Expected within 2-4 hours.</p>
-</div>
-</div>
-
-<div class="flex gap-4">
-<div class="w-3 h-3 bg-gray-300 rounded-full mt-1"></div>
-<div>
-<p class="font-bold text-sm">Processing</p>
-<p class="text-xs text-gray-500">Expected within 4-6 working days.</p>
-</div>
-</div>
-
-<div class="flex gap-4">
-<div class="w-3 h-3 bg-gray-300 rounded-full mt-1"></div>
-<div>
-<p class="font-bold text-sm">Delivery</p>
-<p class="text-xs text-gray-500">Estimated 10-14 working days.</p>
-</div>
+<span id="finalUtr"
+class="font-bold text-gray-900">
+--
+</span>
 </div>
 
 </div>
 
-<button onclick="openChat()" class="w-full mt-8 bg-blue-50 text-blue-700 border border-blue-100 font-bold py-4 rounded-2xl">Need Help?</button>
+<div class="space-y-3">
+
+<button onclick="openChat()"
+class="w-full bg-blue-50 border border-blue-100 text-blue-700 py-4 rounded-2xl font-bold hover:bg-blue-100 transition">
+Need Help?
+</button>
+
+<button onclick="window.location.reload()"
+class="w-full bg-gray-900 text-white py-4 rounded-2xl font-bold">
+Back Home
+</button>
 
 </div>
 
 </div>
+
+</div>
+
 </div>
 
 <!-- CHAT -->
-<div id="chatModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50">
-<div class="bg-white rounded-3xl w-full max-w-md overflow-hidden shadow-2xl">
 
-<div class="bg-blue-600 text-white p-4 flex justify-between items-center">
+<div id="chatModal"
+class="fixed inset-0 bg-black/50 hidden z-50 items-center justify-center p-3">
+
+<div class="bg-white w-full max-w-lg rounded-[30px] overflow-hidden shadow-2xl">
+
+<div class="bg-blue-600 text-white p-5 flex justify-between items-center">
+
 <div>
-<h3 class="font-bold">Support Chat</h3>
-<p class="text-xs opacity-80">Instant Support</p>
-</div>
-<button onclick="closeChat()" class="text-2xl">×</button>
+<h3 class="font-bold text-lg">
+Support Chat
+</h3>
+
+<p class="text-xs opacity-80">
+Online Support
+</p>
 </div>
 
-<div id="chatMessages" class="h-[400px] overflow-y-auto p-4 bg-gray-50 space-y-4"></div>
+<button onclick="closeChat()" class="text-2xl">
+×
+</button>
 
-<div class="p-3 border-t flex gap-2">
-<input id="chatInput" type="text" placeholder="Type message..." class="flex-1 border rounded-2xl px-4 py-3 outline-none">
-<button onclick="sendMessage()" class="bg-blue-600 text-white px-5 rounded-2xl font-bold">Send</button>
+</div>
+
+<div id="chatMessages"
+class="h-[400px] overflow-y-auto p-4 bg-gray-50 space-y-4 chat-scroll">
+
+<div class="bg-blue-600 text-white p-4 rounded-2xl rounded-tl-none max-w-[85%] text-sm">
+Namaste 👋<br><br>
+Welcome to support.<br>
+How can I help you today?
 </div>
 
 </div>
+
+<div class="p-3 border-t bg-white flex gap-2">
+
+<input type="text"
+id="chatInput"
+placeholder="Type message..."
+class="flex-1 border border-gray-200 rounded-2xl px-4 py-3 outline-none focus:ring-4 focus:ring-blue-100">
+
+<button onclick="sendMessage()"
+class="bg-blue-600 text-white px-5 rounded-2xl font-bold">
+Send
+</button>
+
+</div>
+
+</div>
+
 </div>
 
 <script>
-let currentStep = 1;
-const formData = {};
 
-function updateProgress(step){
-const width = ((step-1)/3)*100;
-document.getElementById('progressBar').style.width = width + '%';
+let bookingRef = "";
+
+function setStep(step){
+
+const widths = {
+1:"0%",
+2:"33%",
+3:"66%",
+4:"100%"
+};
+
+document.getElementById("progressBar").style.width = widths[step];
 
 for(let i=1;i<=4;i++){
-const c = document.getElementById('c'+i);
+
+const circle = document.getElementById("circle"+i);
+
 if(i<=step){
-c.classList.remove('bg-gray-300','text-gray-600');
-c.classList.add('bg-blue-600','text-white');
+circle.classList.remove("bg-gray-300","text-gray-600");
+circle.classList.add("bg-blue-600","text-white");
 }else{
-c.classList.add('bg-gray-300','text-gray-600');
-c.classList.remove('bg-blue-600','text-white');
-}
-}
+circle.classList.add("bg-gray-300","text-gray-600");
+circle.classList.remove("bg-blue-600","text-white");
 }
 
-function showStep(step){
-document.querySelectorAll('.step-transition').forEach(el=>el.classList.add('hidden'));
-document.getElementById('step'+step).classList.remove('hidden');
-updateProgress(step);
-window.scrollTo({top:0,behavior:'smooth'});
 }
 
-function nextStep(step){
+}
 
-if(step===2){
-const reg=document.getElementById('regNo').value.trim();
-const vClass=document.getElementById('vehicleClass').value;
-const chassis=document.getElementById('chassis').value.trim();
-const engine=document.getElementById('engine').value.trim();
+function goStep2(){
 
-if(!reg || !vClass || !chassis || !engine){
-alert('Please fill all vehicle details');
+const reg = document.getElementById("regNo").value.trim();
+const vehicle = document.getElementById("vehicleClass").value.trim();
+const chassis = document.getElementById("chassis").value.trim();
+const engine = document.getElementById("engine").value.trim();
+
+if(!reg || !vehicle || !chassis || !engine){
+alert("Please fill all vehicle details");
 return;
 }
 
-if(chassis.length!==5 || engine.length!==5){
-alert('Enter last 5 digits properly');
+if(chassis.length !== 5){
+alert("Chassis number must be last 5 digits");
 return;
 }
 
-formData.regNo=reg;
-}
-
-if(step===3){
-const name=document.getElementById('ownerName').value.trim();
-const mobile=document.getElementById('mobile').value.trim();
-const email=document.getElementById('email').value.trim();
-const state=document.getElementById('state').value;
-const address=document.getElementById('address').value.trim();
-
-if(!name || !mobile || !email || !state || !address){
-alert('Please fill all personal details');
+if(engine.length !== 5){
+alert("Engine number must be last 5 digits");
 return;
 }
 
-const ref='HSR-'+Math.floor(100000+Math.random()*900000);
-formData.ref=ref;
-document.getElementById('refId').innerText='Reference ID : '+ref;
+document.getElementById("step1").classList.add("hidden");
+document.getElementById("step2").classList.remove("hidden");
+
+setStep(2);
+
 }
 
-if(step===4){
-const utr=document.getElementById('utr').value.trim();
+function back1(){
+
+document.getElementById("step2").classList.add("hidden");
+document.getElementById("step1").classList.remove("hidden");
+
+setStep(1);
+
+}
+
+function goStep3(){
+
+const name = document.getElementById("fullName").value.trim();
+const mobile = document.getElementById("mobile").value.trim();
+const state = document.getElementById("state").value.trim();
+const address = document.getElementById("address").value.trim();
+
+if(!name || !mobile || !state || !address){
+alert("Please fill all personal information");
+return;
+}
+
+if(mobile.length !== 10){
+alert("Enter valid mobile number");
+return;
+}
+
+bookingRef = "HSRP" + Math.floor(Math.random()*999999);
+
+document.getElementById("refId").innerText = "Ref: " + bookingRef;
+
+document.getElementById("step2").classList.add("hidden");
+document.getElementById("step3").classList.remove("hidden");
+
+setStep(3);
+
+}
+
+function submitForm(){
+
+const utr = document.getElementById("utr").value.trim();
 
 if(!utr){
-alert('Enter transaction number');
+alert("Please enter transaction number");
 return;
 }
 
-formData.utr=utr;
+document.getElementById("finalReg").innerText =
+document.getElementById("regNo").value;
 
-document.getElementById('finalReg').innerText=formData.regNo;
-document.getElementById('finalRef').innerText=formData.ref;
-document.getElementById('finalUtr').innerText=formData.utr;
-}
+document.getElementById("finalRef").innerText =
+bookingRef;
 
-currentStep=step;
-showStep(step);
-}
+document.getElementById("finalUtr").innerText =
+utr;
 
-function prevStep(step){
-currentStep=step;
-showStep(step);
+document.getElementById("step3").classList.add("hidden");
+document.getElementById("step4").classList.remove("hidden");
+
+setStep(4);
+
 }
 
 function openChat(){
-document.getElementById('chatModal').classList.remove('hidden');
-document.getElementById('chatModal').classList.add('flex');
 
-if(document.getElementById('chatMessages').innerHTML===''){
-appendMessage('ai','Namaste 👋 Your booking is currently under verification. How can I help you today?');
-}
+document.getElementById("chatModal").classList.remove("hidden");
+document.getElementById("chatModal").classList.add("flex");
+
 }
 
 function closeChat(){
-document.getElementById('chatModal').classList.add('hidden');
-document.getElementById('chatModal').classList.remove('flex');
+
+document.getElementById("chatModal").classList.add("hidden");
+document.getElementById("chatModal").classList.remove("flex");
+
 }
 
-function appendMessage(sender,text,isTyping=false,id=''){
-const wrap=document.createElement('div');
-if(id) wrap.id=id;
+function sendMessage(){
 
-wrap.className= sender==='user'
-? 'bg-blue-100 text-blue-900 p-3 rounded-2xl ml-auto max-w-[85%] text-sm font-medium animate-fade-in'
-: 'bg-blue-600 text-white p-3 rounded-2xl mr-auto max-w-[85%] text-sm animate-fade-in';
+const input = document.getElementById("chatInput");
+const msg = input.value.trim();
 
-if(isTyping){
-wrap.innerHTML=`<div class="flex gap-1"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>`;
-}else{
-wrap.textContent=text;
+if(!msg){
+return;
 }
 
-const box=document.getElementById('chatMessages');
-box.appendChild(wrap);
-box.scrollTop=box.scrollHeight;
-}
+const chat = document.getElementById("chatMessages");
 
-async function sendMessage(){
-const input=document.getElementById('chatInput');
-const text=input.value.trim();
-if(!text) return;
+chat.innerHTML += `
+<div class="bg-blue-50 text-blue-900 p-4 rounded-2xl rounded-tr-none ml-auto max-w-[85%] text-sm font-semibold">
+${msg}
+</div>
+`;
 
-appendMessage('user',text);
-input.value='';
+input.value = "";
 
-const typingId='typing'+Date.now();
-appendMessage('ai','',true,typingId);
+const typingId = Date.now();
+
+chat.innerHTML += `
+<div id="${typingId}" class="bg-blue-600 text-white p-4 rounded-2xl rounded-tl-none max-w-[85%]">
+<div class="typing">
+<span></span>
+<span></span>
+<span></span>
+</div>
+</div>
+`;
+
+chat.scrollTop = chat.scrollHeight;
 
 setTimeout(()=>{
-const typing=document.getElementById(typingId);
-if(typing) typing.remove();
 
-let reply='';
-const msg=text.toLowerCase();
+document.getElementById(typingId).remove();
 
-if(msg.includes('delay') || msg.includes('late')){
-reply='I understand your concern sir 🙏 Your booking is currently under verification and usually gets updated within 2-4 hours. Please don\'t worry, your request is active.';
+let reply = "";
+
+const lower = msg.toLowerCase();
+
+if(lower.includes("late") || lower.includes("delay")){
+reply = "I understand your concern sir 🙏 Your verification is currently under process. Usually it gets updated within 24-48 hours.";
 }
-else if(msg.includes('refund')){
-reply='I completely understand your concern. Our support team can help you regarding refund queries once verification is completed.';
+else if(lower.includes("fraud") || lower.includes("fake") || lower.includes("scam")){
+reply = "No worries sir 😊 Your booking request is safely submitted in our system and verification team is already reviewing it.";
 }
-else if(msg.includes('angry') || msg.includes('bad') || msg.includes('fraud') || msg.includes('scam')){
-reply='I sincerely apologize for the inconvenience 🙏 I can understand your frustration. Your booking details are safely received and currently under processing.';
+else if(lower.includes("angry") || lower.includes("bad") || lower.includes("worst")){
+reply = "I truly understand your frustration 🙏 Please don't worry, I am here to help you and your request is already being checked on priority.";
 }
-else if(msg.includes('status')){
-reply='Your booking status is currently showing: Payment Verification in Progress.';
-}
-else if(msg.includes('delivery')){
-reply='Expected delivery timeline is around 10-14 working days after successful verification.';
+else if(lower.includes("status")){
+reply = "Your application is currently under verification. You will receive the next update shortly on your registered mobile number.";
 }
 else{
-const replies=[
-'Thank you for contacting support 😊 Your booking request is active and currently being processed.',
-'I understand sir 👍 Please stay connected, verification updates are usually shared shortly.',
-'Your booking details have been received successfully. Is there anything else I can help you with?',
-'No worries 🙌 Our support team is continuously monitoring booking requests.'
-];
-reply=replies[Math.floor(Math.random()*replies.length)];
+reply = "Thank you for contacting support 😊 Our team is reviewing your request. Please stay connected for further updates.";
 }
 
-appendMessage('ai',reply);
+chat.innerHTML += `
+<div class="bg-blue-600 text-white p-4 rounded-2xl rounded-tl-none max-w-[85%] text-sm">
+${reply}
+</div>
+`;
+
+chat.scrollTop = chat.scrollHeight;
+
 },1200);
+
 }
 
-showStep(1);
 </script>
 
 </body>
 </html>
-```
-
-## Important
-
-* `qr.png` file same folder me upload karna.
-* GitHub Pages me case-sensitive hota hai. File ka naam exact `qr.png` hona chahiye.
-* Bas is code ko `index.html` me paste karo aur push kar do. 以上です ✨
