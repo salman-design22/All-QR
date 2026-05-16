@@ -1,268 +1,154 @@
+# index.html
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>HSRP India - Booking Portal</title>
-
+<title>HSRP Booking Portal</title>
 <script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 body{
-font-family:Arial, sans-serif;
-background:#f3f4f6;
+font-family:'Inter',sans-serif;
+background:#f1f5f9;
+overflow-x:hidden;
+}
+.hidden{display:none}
+.step-transition{transition:.3s ease}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(10px)}
+to{opacity:1;transform:translateY(0)}
+}
+.animate-fade-in{
+animation:fadeIn .3s ease;
 }
 
-.hidden{
-display:none;
+.typing-dot{
+width:5px;
+height:5px;
+background:white;
+border-radius:50%;
+display:inline-block;
+animation:bounce 1.4s infinite ease-in-out both;
 }
+.typing-dot:nth-child(1){animation-delay:-0.32s}
+.typing-dot:nth-child(2){animation-delay:-0.16s}
 
-.step-active{
-background:#2563eb;
-color:white;
-}
-
-.step-inactive{
-background:#d1d5db;
-color:#6b7280;
-}
-
-.chat-scroll::-webkit-scrollbar{
-width:4px;
-}
-
-.chat-scroll::-webkit-scrollbar-thumb{
-background:#cbd5e1;
-border-radius:20px;
+@keyframes bounce{
+0%,80%,100%{transform:scale(0)}
+40%{transform:scale(1)}
 }
 </style>
 </head>
 
-<body class="min-h-screen p-4">
+<body class="min-h-screen p-3 md:p-6 flex justify-center">
 
-<div class="max-w-3xl mx-auto">
+<div class="w-full max-w-2xl">
 
-<!-- HEADER -->
+<div class="bg-white rounded-3xl shadow-xl p-5 md:p-8">
 
-<div class="flex items-center justify-between mb-8">
-
+<div class="flex items-center gap-3 mb-8">
+<div class="w-12 h-12 rounded-2xl bg-blue-600 flex items-center justify-center text-white font-bold text-xl">H</div>
 <div>
-<h1 class="text-3xl font-bold text-gray-900">
-HSRP India
-</h1>
-
-<p class="text-gray-500 text-sm tracking-widest">
-BOOKING PORTAL
-</p>
+<h1 class="text-2xl font-bold text-gray-900">HSRP Booking</h1>
+<p class="text-xs text-gray-500 uppercase tracking-widest">Vehicle Plate Booking Portal</p>
+</div>
 </div>
 
-<button
-onclick="openStatusChat()"
-class="bg-white border px-5 py-3 rounded-2xl font-semibold shadow"
->
-Need Help?
-</button>
-
-</div>
-
-<!-- STEPPER -->
-
-<div class="mb-10">
-
-<div class="flex justify-between items-center relative">
-
-<div class="absolute top-5 left-0 w-full h-1 bg-gray-200"></div>
-
-<div
-id="progress-bar"
-class="absolute top-5 left-0 h-1 bg-blue-600 transition-all duration-500"
-style="width:0%"
-></div>
+<div class="flex justify-between mb-8 relative">
+<div class="absolute left-0 top-4 h-1 bg-gray-200 w-full rounded-full"></div>
+<div id="progressBar" class="absolute left-0 top-4 h-1 bg-blue-600 rounded-full transition-all duration-500" style="width:0%"></div>
 
 <div class="relative z-10 text-center">
-<div id="step-1-circle" class="w-10 h-10 rounded-full flex items-center justify-center font-bold step-active">
-1
-</div>
-<p class="text-xs mt-2 font-bold">
-VEHICLE
-</p>
+<div id="c1" class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold mx-auto">1</div>
+<p class="text-[10px] mt-2 font-bold">Vehicle</p>
 </div>
 
 <div class="relative z-10 text-center">
-<div id="step-2-circle" class="w-10 h-10 rounded-full flex items-center justify-center font-bold step-inactive">
-2
-</div>
-<p class="text-xs mt-2 font-bold">
-PERSONAL
-</p>
+<div id="c2" class="w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold mx-auto">2</div>
+<p class="text-[10px] mt-2 font-bold">Personal</p>
 </div>
 
 <div class="relative z-10 text-center">
-<div id="step-3-circle" class="w-10 h-10 rounded-full flex items-center justify-center font-bold step-inactive">
-3
-</div>
-<p class="text-xs mt-2 font-bold">
-PAYMENT
-</p>
+<div id="c3" class="w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold mx-auto">3</div>
+<p class="text-[10px] mt-2 font-bold">Payment</p>
 </div>
 
 <div class="relative z-10 text-center">
-<div id="step-4-circle" class="w-10 h-10 rounded-full flex items-center justify-center font-bold step-inactive">
-4
-</div>
-<p class="text-xs mt-2 font-bold">
-DONE
-</p>
-</div>
-
+<div id="c4" class="w-8 h-8 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold mx-auto">4</div>
+<p class="text-[10px] mt-2 font-bold">Done</p>
 </div>
 </div>
-
-<!-- MAIN CARD -->
-
-<div class="bg-white rounded-[35px] shadow-xl p-6 md:p-10">
 
 <!-- STEP 1 -->
+<div id="step1" class="step-transition">
+<h2 class="text-xl font-bold mb-6">Vehicle Information</h2>
 
-<div id="step-1">
-
-<h2 class="text-4xl font-bold mb-8 text-gray-900">
-Vehicle Information
-</h2>
-
-<div class="grid md:grid-cols-2 gap-5">
+<div class="space-y-4">
 
 <div>
-<label class="text-xs font-bold text-gray-400 block mb-2">
-REGISTRATION NUMBER
-</label>
-
-<input
-id="regNo"
-type="text"
-placeholder="DL01AB1234"
-class="w-full border rounded-2xl px-5 py-4 text-lg font-semibold outline-none"
-/>
+<label class="text-xs font-bold text-gray-500 uppercase">Registration Number</label>
+<input id="regNo" type="text" placeholder="DL01AB1234" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 uppercase font-semibold">
 </div>
 
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div>
-<label class="text-xs font-bold text-gray-400 block mb-2">
-VEHICLE CLASS
-</label>
-
-<select
-id="vClass"
-class="w-full border rounded-2xl px-5 py-4 text-lg font-semibold outline-none"
->
-<option value="">Select</option>
+<label class="text-xs font-bold text-gray-500 uppercase">Vehicle Class</label>
+<select id="vehicleClass" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold bg-white">
+<option value="">Select Vehicle</option>
 <option>Two Wheeler</option>
 <option>Four Wheeler</option>
-<option>Commercial</option>
+<option>Commercial Vehicle</option>
 </select>
 </div>
 
 <div>
-<label class="text-xs font-bold text-gray-400 block mb-2">
-CHASSIS NO (LAST 5)
-</label>
-
-<input
-id="chassis"
-maxlength="5"
-type="text"
-placeholder="12345"
-class="w-full border rounded-2xl px-5 py-4 text-lg font-semibold outline-none"
-/>
+<label class="text-xs font-bold text-gray-500 uppercase">Chassis No. (Last 5 Digits)</label>
+<input id="chassis" maxlength="5" type="text" placeholder="12345" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 uppercase font-semibold">
+</div>
 </div>
 
 <div>
-<label class="text-xs font-bold text-gray-400 block mb-2">
-ENGINE NO (LAST 5)
-</label>
-
-<input
-id="engine"
-maxlength="5"
-type="text"
-placeholder="12345"
-class="w-full border rounded-2xl px-5 py-4 text-lg font-semibold outline-none"
-/>
+<label class="text-xs font-bold text-gray-500 uppercase">Engine No. (Last 5 Digits)</label>
+<input id="engine" maxlength="5" type="text" placeholder="67890" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 uppercase font-semibold">
 </div>
 
+<button onclick="nextStep(2)" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl mt-2">Continue</button>
+
 </div>
-
-<button
-onclick="nextStep(2)"
-class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 rounded-2xl mt-8 text-lg"
->
-Continue
-</button>
-
 </div>
 
 <!-- STEP 2 -->
+<div id="step2" class="hidden step-transition">
+<h2 class="text-xl font-bold mb-6">Personal Information</h2>
 
-<div id="step-2" class="hidden">
-
-<h2 class="text-4xl font-bold mb-8 text-gray-900">
-Personal Information
-</h2>
-
-<div class="space-y-5">
+<div class="space-y-4">
 
 <div>
-<label class="text-xs font-bold text-gray-400 block mb-2">
-FULL NAME (AS PER RC)
-</label>
-
-<input
-id="ownerName"
-type="text"
-class="w-full border rounded-2xl px-5 py-4 text-lg font-semibold outline-none"
-/>
+<label class="text-xs font-bold text-gray-500 uppercase">Full Name (As per RC)</label>
+<input id="ownerName" type="text" placeholder="Enter Full Name" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold">
 </div>
 
-<div class="grid md:grid-cols-2 gap-5">
-
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 <div>
-<label class="text-xs font-bold text-gray-400 block mb-2">
-MOBILE NUMBER
-</label>
-
-<input
-id="mobile"
-maxlength="10"
-type="number"
-class="w-full border rounded-2xl px-5 py-4 text-lg font-semibold outline-none"
-/>
+<label class="text-xs font-bold text-gray-500 uppercase">Mobile Number</label>
+<input id="mobile" maxlength="10" type="tel" placeholder="9876543210" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold">
 </div>
 
 <div>
-<label class="text-xs font-bold text-gray-400 block mb-2">
-EMAIL ADDRESS
-</label>
-
-<input
-id="email"
-type="email"
-class="w-full border rounded-2xl px-5 py-4 text-lg font-semibold outline-none"
-/>
+<label class="text-xs font-bold text-gray-500 uppercase">Email Address</label>
+<input id="email" type="email" placeholder="example@mail.com" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold">
 </div>
-
 </div>
 
 <div>
-<label class="text-xs font-bold text-gray-400 block mb-2">
-STATE / UT
-</label>
-
-<select
-id="state"
-class="w-full border rounded-2xl px-5 py-4 text-lg font-semibold outline-none"
->
-
+<label class="text-xs font-bold text-gray-500 uppercase">State / UT</label>
+<select id="state" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold bg-white">
 <option value="">Select State / UT</option>
-
 <option>Andhra Pradesh</option>
 <option>Arunachal Pradesh</option>
 <option>Assam</option>
@@ -291,641 +177,321 @@ class="w-full border rounded-2xl px-5 py-4 text-lg font-semibold outline-none"
 <option>Uttar Pradesh</option>
 <option>Uttarakhand</option>
 <option>West Bengal</option>
-
 <option>Delhi</option>
-<option>Chandigarh</option>
 <option>Jammu and Kashmir</option>
 <option>Ladakh</option>
+<option>Chandigarh</option>
 <option>Puducherry</option>
-<option>Lakshadweep</option>
 <option>Andaman and Nicobar Islands</option>
-
+<option>Dadra and Nagar Haveli and Daman and Diu</option>
+<option>Lakshadweep</option>
 </select>
 </div>
 
 <div>
-<label class="text-xs font-bold text-gray-400 block mb-2">
-ADDRESS
-</label>
-
-<textarea
-id="address"
-rows="4"
-class="w-full border rounded-2xl px-5 py-4 text-lg font-semibold outline-none"
-></textarea>
+<label class="text-xs font-bold text-gray-500 uppercase">Installation Address</label>
+<textarea id="address" rows="3" placeholder="Full Address" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold"></textarea>
 </div>
 
-<div class="flex gap-4">
-
-<button
-onclick="prevStep(1)"
-class="w-1/3 bg-gray-200 py-5 rounded-2xl font-bold"
->
-Back
-</button>
-
-<button
-onclick="nextStep(3)"
-class="w-2/3 bg-blue-600 text-white py-5 rounded-2xl font-bold"
->
-Proceed To Payment
-</button>
-
+<div class="grid grid-cols-2 gap-3">
+<button onclick="prevStep(1)" class="bg-gray-200 text-gray-700 font-bold py-4 rounded-2xl">Back</button>
+<button onclick="nextStep(3)" class="bg-blue-600 text-white font-bold py-4 rounded-2xl">Proceed</button>
 </div>
 
 </div>
-
 </div>
 
 <!-- STEP 3 -->
+<div id="step3" class="hidden step-transition text-center">
+<h2 class="text-xl font-bold mb-6">Scan & Pay</h2>
 
-<div id="step-3" class="hidden text-center">
-
-<h2 class="text-4xl font-bold mb-8 text-gray-900">
-Scan To Pay
-</h2>
-
-<div class="bg-gray-100 rounded-3xl p-6 inline-block">
-
-<img
-src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Alipay_logo.svg"
-class="w-48 h-48 object-contain bg-white rounded-2xl p-5"
-/>
-
-<p
-id="qr-ref-display"
-class="mt-4 text-sm font-bold text-gray-600"
->
-Generating...
-</p>
-
+<div class="bg-gray-100 rounded-3xl p-5 inline-block border border-dashed border-gray-300">
+<img src="qr.png" alt="QR" class="w-52 h-52 object-contain rounded-2xl bg-white p-2 mx-auto">
+<p id="refId" class="mt-4 text-xs font-bold text-gray-500">Generating Ref...</p>
 </div>
 
-<div class="mt-8 max-w-md mx-auto">
-
-<label class="text-xs font-bold text-gray-400 block mb-2 text-left">
-UTR / TRANSACTION NUMBER
-</label>
-
-<input
-id="utrNumber"
-type="text"
-class="w-full border rounded-2xl px-5 py-4 text-lg font-semibold outline-none"
-/>
-
-<button
-onclick="nextStep(4)"
-class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold mt-6"
->
-Submit Booking
-</button>
-
+<div class="mt-6 text-left">
+<label class="text-xs font-bold text-gray-500 uppercase">UTR / Transaction Number</label>
+<input id="utr" type="text" placeholder="Enter Transaction Number" class="w-full mt-2 border border-gray-200 rounded-2xl px-4 py-4 outline-none focus:ring-4 focus:ring-blue-100 font-semibold">
 </div>
 
+<div class="grid grid-cols-2 gap-3 mt-5">
+<button onclick="prevStep(2)" class="bg-gray-200 text-gray-700 font-bold py-4 rounded-2xl">Back</button>
+<button onclick="nextStep(4)" class="bg-blue-600 text-white font-bold py-4 rounded-2xl">Submit</button>
+</div>
 </div>
 
 <!-- STEP 4 -->
+<div id="step4" class="hidden step-transition text-center">
 
-<div id="step-4" class="hidden text-center">
-
-<div class="w-24 h-24 rounded-full bg-green-500 mx-auto flex items-center justify-center text-white text-5xl">
-✓
+<div class="w-20 h-20 rounded-full bg-green-500 flex items-center justify-center mx-auto mb-5 shadow-lg shadow-green-200">
+<svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+<path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+</svg>
 </div>
 
-<h2 class="text-5xl font-bold mt-6 text-gray-900">
-Booking Received!
-</h2>
+<h2 class="text-3xl font-bold text-gray-900">Booking Submitted</h2>
+<p class="text-gray-500 mt-2">Verification process started successfully.</p>
 
-<p class="text-gray-500 mt-3 text-lg">
-Verification process has started.
-</p>
-
-<div class="bg-gray-50 rounded-3xl p-6 mt-10 text-left">
-
-<div class="flex justify-between items-center mb-6">
-
-<h3 class="font-bold tracking-widest text-gray-500">
-DIGITAL RECEIPT
-</h3>
-
-<div class="bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-bold">
-PROCESSING
+<div class="bg-gray-50 rounded-3xl p-6 mt-8 text-left border border-gray-100">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-bold text-sm">Booking Details</h3>
+<span class="bg-blue-100 text-blue-700 text-[10px] px-3 py-1 rounded-full font-bold">PROCESSING</span>
 </div>
 
-</div>
-
-<div class="space-y-4">
-
+<div class="space-y-3 text-sm">
 <div class="flex justify-between">
-<span class="text-gray-400">Vehicle No.</span>
-<span id="final-reg" class="font-bold"></span>
+<span class="text-gray-500">Vehicle Number</span>
+<span id="finalReg" class="font-bold"></span>
 </div>
 
 <div class="flex justify-between">
-<span class="text-gray-400">Reference ID</span>
-<span id="final-id" class="font-bold"></span>
+<span class="text-gray-500">Reference ID</span>
+<span id="finalRef" class="font-bold"></span>
 </div>
 
-<div class="flex justify-between border-t pt-4">
-<span class="text-gray-400">Transaction ID</span>
-<span id="final-utr" class="font-bold"></span>
+<div class="flex justify-between border-t pt-3">
+<span class="text-gray-500">Transaction Number</span>
+<span id="finalUtr" class="font-bold"></span>
+</div>
+</div>
 </div>
 
-</div>
+<div class="mt-8 text-left space-y-5">
 
-</div>
-
-<div class="mt-10 space-y-6 text-left">
-
+<div class="flex gap-4">
+<div class="w-3 h-3 bg-blue-600 rounded-full mt-1"></div>
 <div>
-<p class="font-bold text-lg">
-Payment Verification
-</p>
-
-<p class="text-gray-500">
-Completed in 2-4 hours.
-</p>
+<p class="font-bold text-sm">Payment Verification</p>
+<p class="text-xs text-gray-500">Expected within 2-4 hours.</p>
+</div>
 </div>
 
+<div class="flex gap-4">
+<div class="w-3 h-3 bg-gray-300 rounded-full mt-1"></div>
 <div>
-<p class="font-bold text-lg">
-RTO Data Submission
-</p>
-
-<p class="text-gray-500">
-Expected in 4-6 working days.
-</p>
+<p class="font-bold text-sm">Processing</p>
+<p class="text-xs text-gray-500">Expected within 4-6 working days.</p>
+</div>
 </div>
 
+<div class="flex gap-4">
+<div class="w-3 h-3 bg-gray-300 rounded-full mt-1"></div>
 <div>
-<p class="font-bold text-lg">
-Final Home Delivery
-</p>
-
-<p class="text-blue-600 font-bold">
-ESTIMATED: 10-14 WORKING DAYS
-</p>
+<p class="font-bold text-sm">Delivery</p>
+<p class="text-xs text-gray-500">Estimated 10-14 working days.</p>
+</div>
 </div>
 
 </div>
 
-<button
-onclick="window.location.reload()"
-class="w-full bg-black text-white py-5 rounded-2xl font-bold mt-10"
->
-Go Back Home
-</button>
+<button onclick="openChat()" class="w-full mt-8 bg-blue-50 text-blue-700 border border-blue-100 font-bold py-4 rounded-2xl">Need Help?</button>
 
 </div>
 
 </div>
-
 </div>
 
-<!-- CHAT MODAL -->
+<!-- CHAT -->
+<div id="chatModal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50">
+<div class="bg-white rounded-3xl w-full max-w-md overflow-hidden shadow-2xl">
 
-<div
-id="chat-modal"
-class="fixed inset-0 bg-black/40 hidden items-center justify-center p-4"
->
-
-<div class="bg-white w-full max-w-lg rounded-3xl overflow-hidden shadow-2xl">
-
-<div class="bg-blue-600 p-5 flex justify-between items-center">
-
-<div class="text-white">
-<h3 class="font-bold text-xl">
-Support Chat
-</h3>
-
-<p class="text-blue-100 text-sm">
-Online
-</p>
+<div class="bg-blue-600 text-white p-4 flex justify-between items-center">
+<div>
+<h3 class="font-bold">Support Chat</h3>
+<p class="text-xs opacity-80">Instant Support</p>
+</div>
+<button onclick="closeChat()" class="text-2xl">×</button>
 </div>
 
-<button
-onclick="closeChat()"
-class="text-white text-2xl"
->
-×
-</button>
+<div id="chatMessages" class="h-[400px] overflow-y-auto p-4 bg-gray-50 space-y-4"></div>
 
-</div>
-
-<div
-id="chat-window"
-class="h-[450px] overflow-y-auto p-5 bg-gray-50 chat-scroll"
->
-
-<div id="chat-auth-form">
-
-<input
-id="chat-auth-reg"
-placeholder="Vehicle Number"
-class="w-full border rounded-2xl px-5 py-4 mb-4 font-semibold outline-none"
-/>
-
-<input
-id="chat-auth-id"
-placeholder="Reference ID"
-class="w-full border rounded-2xl px-5 py-4 mb-4 font-semibold outline-none"
-/>
-
-<button
-onclick="startAISupport()"
-class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold"
->
-Start Chat
-</button>
-
-</div>
-
-<div
-id="chat-messages"
-class="space-y-4 hidden"
-></div>
-
-</div>
-
-<div
-id="chat-input-container"
-class="hidden p-4 border-t flex gap-3"
->
-
-<input
-id="chat-input"
-type="text"
-placeholder="Type message..."
-class="flex-1 border rounded-2xl px-5 py-4 font-semibold outline-none"
-onkeypress="if(event.key==='Enter')handleChatMessage()"
-/>
-
-<button
-onclick="handleChatMessage()"
-class="bg-blue-600 text-white px-6 rounded-2xl font-bold"
->
-Send
-</button>
-
+<div class="p-3 border-t flex gap-2">
+<input id="chatInput" type="text" placeholder="Type message..." class="flex-1 border rounded-2xl px-4 py-3 outline-none">
+<button onclick="sendMessage()" class="bg-blue-600 text-white px-5 rounded-2xl font-bold">Send</button>
 </div>
 
 </div>
-
 </div>
 
-<!-- FIREBASE + AI -->
+<script>
+let currentStep = 1;
+const formData = {};
 
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-
-import {
-getFirestore,
-collection,
-addDoc,
-serverTimestamp
-}
-from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
-
-const firebaseConfig = {
-
-apiKey: "AIzaSyBfF7PTAiduiPr7mcU_Abhw_58HMy-6VCw",
-
-authDomain: "hsp-chat-box-api.firebaseapp.com",
-
-projectId: "hsp-chat-box-api",
-
-storageBucket: "hsp-chat-box-api.appspot.com",
-
-messagingSenderId: "573359693574",
-
-appId: "1:573359693574:web:7c628a3c1b92d8bc5b0887"
-
-};
-
-const app = initializeApp(firebaseConfig);
-
-const db = getFirestore(app);
-
-window.formData = {};
-
-/* STEP UPDATE */
-
-window.updateStepper = function(step){
+function updateProgress(step){
+const width = ((step-1)/3)*100;
+document.getElementById('progressBar').style.width = width + '%';
 
 for(let i=1;i<=4;i++){
-
-const el = document.getElementById(`step-${i}-circle`);
-
+const c = document.getElementById('c'+i);
 if(i<=step){
-
-el.classList.remove("step-inactive");
-el.classList.add("step-active");
-
+c.classList.remove('bg-gray-300','text-gray-600');
+c.classList.add('bg-blue-600','text-white');
 }else{
-
-el.classList.remove("step-active");
-el.classList.add("step-inactive");
-
+c.classList.add('bg-gray-300','text-gray-600');
+c.classList.remove('bg-blue-600','text-white');
+}
+}
 }
 
+function showStep(step){
+document.querySelectorAll('.step-transition').forEach(el=>el.classList.add('hidden'));
+document.getElementById('step'+step).classList.remove('hidden');
+updateProgress(step);
+window.scrollTo({top:0,behavior:'smooth'});
 }
 
-document.getElementById("progress-bar").style.width =
-((step-1)/3)*100 + "%";
-
-};
-
-/* NEXT STEP */
-
-window.nextStep = async function(step){
+function nextStep(step){
 
 if(step===2){
+const reg=document.getElementById('regNo').value.trim();
+const vClass=document.getElementById('vehicleClass').value;
+const chassis=document.getElementById('chassis').value.trim();
+const engine=document.getElementById('engine').value.trim();
 
-if(
-!regNo.value ||
-!vClass.value ||
-!chassis.value ||
-!engine.value
-){
-
-return alert("Please fill all vehicle details.");
-
+if(!reg || !vClass || !chassis || !engine){
+alert('Please fill all vehicle details');
+return;
 }
 
-formData.regNo = regNo.value;
-formData.vClass = vClass.value;
-formData.chassis = chassis.value;
-formData.engine = engine.value;
+if(chassis.length!==5 || engine.length!==5){
+alert('Enter last 5 digits properly');
+return;
+}
 
+formData.regNo=reg;
 }
 
 if(step===3){
+const name=document.getElementById('ownerName').value.trim();
+const mobile=document.getElementById('mobile').value.trim();
+const email=document.getElementById('email').value.trim();
+const state=document.getElementById('state').value;
+const address=document.getElementById('address').value.trim();
 
-if(
-!ownerName.value ||
-!mobile.value ||
-!email.value ||
-!state.value ||
-!address.value
-){
-
-return alert("Please fill all personal details.");
-
+if(!name || !mobile || !email || !state || !address){
+alert('Please fill all personal details');
+return;
 }
 
-formData.owner = ownerName.value;
-formData.mobile = mobile.value;
-formData.email = email.value;
-formData.state = state.value;
-formData.address = address.value;
-
-formData.ref =
-"HSR-" + Math.floor(100000 + Math.random()*900000);
-
-document.getElementById("qr-ref-display").innerText =
-"Reference ID : " + formData.ref;
-
+const ref='HSR-'+Math.floor(100000+Math.random()*900000);
+formData.ref=ref;
+document.getElementById('refId').innerText='Reference ID : '+ref;
 }
 
 if(step===4){
+const utr=document.getElementById('utr').value.trim();
 
-if(!utrNumber.value){
-
-return alert("Please enter transaction number.");
-
+if(!utr){
+alert('Enter transaction number');
+return;
 }
 
-formData.utr = utrNumber.value;
+formData.utr=utr;
 
-await addDoc(collection(db,"bookings"),{
-
-...formData,
-
-createdAt:serverTimestamp()
-
-});
-
-final-reg.innerText = formData.regNo;
-final-id.innerText = formData.ref;
-final-utr.innerText = formData.utr;
-
+document.getElementById('finalReg').innerText=formData.regNo;
+document.getElementById('finalRef').innerText=formData.ref;
+document.getElementById('finalUtr').innerText=formData.utr;
 }
 
-document.querySelectorAll("[id^='step-']")
-.forEach(el=>{
-
-if(el.classList.contains("hidden")===false &&
-el.id !== `step-${step}` &&
-el.id.includes("step-")){
-
-el.classList.add("hidden");
-
+currentStep=step;
+showStep(step);
 }
 
-});
-
-document.getElementById(`step-${step}`)
-.classList.remove("hidden");
-
-updateStepper(step);
-
-};
-
-/* PREV */
-
-window.prevStep = function(step){
-
-document.querySelectorAll("[id^='step-']")
-.forEach(el=>{
-
-if(el.classList.contains("hidden")===false &&
-el.id !== `step-${step}` &&
-el.id.includes("step-")){
-
-el.classList.add("hidden");
-
+function prevStep(step){
+currentStep=step;
+showStep(step);
 }
 
-});
+function openChat(){
+document.getElementById('chatModal').classList.remove('hidden');
+document.getElementById('chatModal').classList.add('flex');
 
-document.getElementById(`step-${step}`)
-.classList.remove("hidden");
-
-updateStepper(step);
-
-};
-
-/* CHAT */
-
-window.openStatusChat = function(){
-
-document.getElementById("chat-modal")
-.classList.remove("hidden");
-
-document.getElementById("chat-modal")
-.classList.add("flex");
-
-};
-
-window.closeChat = function(){
-
-document.getElementById("chat-modal")
-.classList.add("hidden");
-
-document.getElementById("chat-modal")
-.classList.remove("flex");
-
-};
-
-window.startAISupport = function(){
-
-if(
-!chat-auth-reg.value ||
-!chat-auth-id.value
-){
-
-return alert("Please fill details.");
-
+if(document.getElementById('chatMessages').innerHTML===''){
+appendMessage('ai','Namaste 👋 Your booking is currently under verification. How can I help you today?');
+}
 }
 
-chat-auth-form.classList.add("hidden");
+function closeChat(){
+document.getElementById('chatModal').classList.add('hidden');
+document.getElementById('chatModal').classList.remove('flex');
+}
 
-chat-messages.classList.remove("hidden");
+function appendMessage(sender,text,isTyping=false,id=''){
+const wrap=document.createElement('div');
+if(id) wrap.id=id;
 
-chat-input-container.classList.remove("hidden");
+wrap.className= sender==='user'
+? 'bg-blue-100 text-blue-900 p-3 rounded-2xl ml-auto max-w-[85%] text-sm font-medium animate-fade-in'
+: 'bg-blue-600 text-white p-3 rounded-2xl mr-auto max-w-[85%] text-sm animate-fade-in';
 
-appendMsg(
-"ai",
-`Hello 👋 Your booking for ${chat-auth-reg.value.toUpperCase()} is under verification. Usually it takes 2-4 hours. Please tell me how may I help you today.`
-);
-
-};
-
-/* APPEND MSG */
-
-function appendMsg(sender,text){
-
-const div = document.createElement("div");
-
-if(sender==="user"){
-
-div.className =
-"bg-blue-50 text-blue-900 p-4 rounded-2xl ml-auto max-w-[80%]";
-
+if(isTyping){
+wrap.innerHTML=`<div class="flex gap-1"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div>`;
 }else{
-
-div.className =
-"bg-blue-600 text-white p-4 rounded-2xl max-w-[80%]";
-
+wrap.textContent=text;
 }
 
-div.innerText = text;
-
-chat-messages.appendChild(div);
-
-chat-window.scrollTop =
-chat-window.scrollHeight;
-
+const box=document.getElementById('chatMessages');
+box.appendChild(wrap);
+box.scrollTop=box.scrollHeight;
 }
 
-/* AI CHAT */
-
-window.handleChatMessage = async function(){
-
-const text = chat-input.value.trim();
-
+async function sendMessage(){
+const input=document.getElementById('chatInput');
+const text=input.value.trim();
 if(!text) return;
 
-appendMsg("user",text);
+appendMessage('user',text);
+input.value='';
 
-chat-input.value = "";
+const typingId='typing'+Date.now();
+appendMessage('ai','',true,typingId);
 
-appendMsg("ai","Typing...");
+setTimeout(()=>{
+const typing=document.getElementById(typingId);
+if(typing) typing.remove();
 
-try{
+let reply='';
+const msg=text.toLowerCase();
 
-const apiKey = "PASTE_YOUR_GEMINI_API_KEY";
-
-const response = await fetch(
-
-`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-
-{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-
-contents:[{
-
-parts:[{
-text:text
-}]
-
-}],
-
-systemInstruction:{
-
-parts:[{
-
-text:`
-
-You are a human customer support executive.
-
-RULES:
-- Talk naturally like real human.
-- Calm angry customers politely.
-- Reply in Hinglish.
-- Keep answers short.
-- Never say server busy.
-- Never say AI.
-- Payment verification takes 2-4 hours.
-- Delivery takes 10-14 working days.
-
-`
-
-}]
-
+if(msg.includes('delay') || msg.includes('late')){
+reply='I understand your concern sir 🙏 Your booking is currently under verification and usually gets updated within 2-4 hours. Please don\'t worry, your request is active.';
+}
+else if(msg.includes('refund')){
+reply='I completely understand your concern. Our support team can help you regarding refund queries once verification is completed.';
+}
+else if(msg.includes('angry') || msg.includes('bad') || msg.includes('fraud') || msg.includes('scam')){
+reply='I sincerely apologize for the inconvenience 🙏 I can understand your frustration. Your booking details are safely received and currently under processing.';
+}
+else if(msg.includes('status')){
+reply='Your booking status is currently showing: Payment Verification in Progress.';
+}
+else if(msg.includes('delivery')){
+reply='Expected delivery timeline is around 10-14 working days after successful verification.';
+}
+else{
+const replies=[
+'Thank you for contacting support 😊 Your booking request is active and currently being processed.',
+'I understand sir 👍 Please stay connected, verification updates are usually shared shortly.',
+'Your booking details have been received successfully. Is there anything else I can help you with?',
+'No worries 🙌 Our support team is continuously monitoring booking requests.'
+];
+reply=replies[Math.floor(Math.random()*replies.length)];
 }
 
-})
-
+appendMessage('ai',reply);
+},1200);
 }
 
-);
-
-const result = await response.json();
-
-const aiReply =
-result?.candidates?.[0]?.content?.parts
-?.map(p=>p.text)
-?.join(" ")
-
-|| "Your request is under review. Please stay connected.";
-
-chat-messages.lastChild.remove();
-
-appendMsg("ai",aiReply);
-
-}catch(err){
-
-chat-messages.lastChild.remove();
-
-appendMsg(
-"ai",
-"I understand your concern. Your request is being checked by our verification team. Please stay connected."
-);
-
-}
-
-};
-
+showStep(1);
 </script>
 
 </body>
 </html>
+```
+
+## Important
+
+* `qr.png` file same folder me upload karna.
+* GitHub Pages me case-sensitive hota hai. File ka naam exact `qr.png` hona chahiye.
+* Bas is code ko `index.html` me paste karo aur push kar do. 以上です ✨
