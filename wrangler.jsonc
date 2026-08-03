@@ -1,6 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": // wrangler.jsonc
+// wrangler.jsonc
 "name": "all-qr",
   "compatibility_date": "2026-05-17",
   "observability": {
